@@ -51,9 +51,7 @@ protected:
 class DotGraph : public Graph
 {
 public:
-    DotGraph();
-    ~DotGraph();
-
+    DotGraph() : Graph() {}
     void refresh();
 };
 
@@ -62,12 +60,17 @@ public:
 class LineGraph : public Graph
 {
 public:
-    LineGraph();
-    ~LineGraph();
-
+    LineGraph() : Graph() {}
     void refresh();
 };
 
 //////////////////////////////
+
+class BarGraph : public Graph
+{
+public:
+    BarGraph() : Graph() {}
+    void refresh();
+};
 
 #endif

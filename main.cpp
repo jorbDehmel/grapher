@@ -3,28 +3,17 @@
 #include <iostream>
 #include <cmath>
 
-double t = 0;
 bool a(double &x, double &y)
 {
-    y = 5 * sin(t);
-    x = 5 * cos(t);
+    y = x;
+    x += .01;
 
-    t += .001;
-
-    if (t > 7)
-    {
-        t = 0;
-        return false;
-    }
-    else
-    {
-        return true;
-    }
+    return true;
 }
 
 int main()
 {
-    LineGraph g;
+    BarGraph g;
 
     g.equations.push_back(a);
 

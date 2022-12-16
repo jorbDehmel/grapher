@@ -70,9 +70,6 @@ void Graph::refresh()
 
 //////////////////////////////
 
-DotGraph::DotGraph() : Graph() {}
-DotGraph::~DotGraph() {}
-
 void DotGraph::refresh()
 {
     this->Graph::refresh();
@@ -116,9 +113,6 @@ struct Point
     Point(const Point &other) : x(other.x), y(other.y) {}
     double x, y;
 };
-
-LineGraph::LineGraph() : Graph() {}
-LineGraph::~LineGraph() {}
 
 void LineGraph::refresh()
 {
@@ -176,3 +170,66 @@ void LineGraph::refresh()
 }
 
 //////////////////////////////
+
+void BarGraph::refresh()
+{
+    this->Graph::refresh();
+
+    double realX, realY;
+
+    int steps;
+    double x;
+    double y;
+
+    vector<vector<Point>> points;
+
+    // Prepare data
+    for (int i = 0; i < equations.size(); i++)
+    {
+        vector<Point> eqData;
+
+        steps = 0;
+        x = xMin;
+        y = yMin;
+
+        while ((equations[i])(x, y) && x < xMax)
+        {
+            convertPoint(x, y, realX, realY);
+
+            // Log point
+            eqData.push_back(Point(realX, realY));
+
+            steps++;
+            if (steps > 100000)
+                throw runtime_error("Cannot graph: Ensure your equation is bounded.");
+        }
+
+        points.push_back(eqData);
+    }
+
+    // Graph data
+    for (int i = 0; i < points.size(); i++)
+    {
+        Pixel color = colors[i % (colors.size() + 1)];
+        SDL_SetRenderDrawColor(rend, color.r, color.g, color.b, color.a);
+
+        for (int j = 0; j + 1 < points[i].size(); j++)
+        {
+            Point a = points[i][j], b = points[i][j + 1];
+
+            SDL_Rect r;
+
+            r.x = a.x;
+            r.y = (-yMax / (yMin - yMax)) * HEIGHT;
+
+            r.w = b.x - a.x;
+            r.h = a.y - (-yMax / (yMin - yMax)) * HEIGHT;
+
+            SDL_RenderDrawRect(rend, &r);
+        }
+    }
+
+    SDL_RenderPresent(rend);
+
+    return;
+}

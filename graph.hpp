@@ -40,6 +40,8 @@ public:
     vector<Pixel> colors;
 
 protected:
+    void convertPoint(const double &, const double &, double &, double &);
+
     SDL_Window *wind;
     SDL_Renderer *rend;
 };

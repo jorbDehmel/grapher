@@ -6,7 +6,7 @@
 //////////////////////////////
 
 unsigned int HEIGHT = 256, WIDTH = 256;
-double UPSCALING_X = 8, UPSCALING_Y = 8;
+double UPSCALING_X = 4, UPSCALING_Y = 4;
 char TITLE[64] = "Jorb Grapher 0.01";
 
 bool SDL_IS_INITIALIZED = false;
@@ -47,6 +47,14 @@ Graph::~Graph()
     return;
 }
 
+void Graph::convertPoint(const double &xIn, const double &yIn, double &xOut, double &yOut)
+{
+    xOut = ((xIn - xMin) / (xMax - xMin)) * WIDTH;
+    yOut = ((yIn - yMax) / (yMin - yMax)) * HEIGHT;
+
+    return;
+}
+
 void Graph::refresh()
 {
     SDL_SetRenderDrawColor(rend, bgc.r, bgc.g, bgc.b, bgc.a);
@@ -56,20 +64,6 @@ void Graph::refresh()
     SDL_SetRenderDrawColor(rend, 0, 0, 0, 255);
     SDL_RenderDrawLine(rend, (-xMin / (xMax - xMin)) * WIDTH, 0, (-xMin / (xMax - xMin)) * WIDTH, HEIGHT);
     SDL_RenderDrawLine(rend, 0, (-yMax / (yMin - yMax)) * HEIGHT, WIDTH, (-yMax / (yMin - yMax)) * HEIGHT);
-
-    // Draw ticks
-    SDL_SetRenderDrawColor(rend, 128, 128, 128, 255);
-    for (int i = 0; i < xMax; i++)
-    {
-        SDL_RenderDrawPoint(rend, (i - xMin / (xMax - xMin)) * WIDTH, (-yMax / (yMin - yMax)) * HEIGHT);
-        SDL_RenderDrawPoint(rend, (-i - xMin / (xMax - xMin)) * WIDTH, (-yMax / (yMin - yMax)) * HEIGHT);
-    }
-
-    for (int i = 0; i < yMax; i++)
-    {
-        SDL_RenderDrawPoint(rend, (-xMin / (xMax - xMin)) * WIDTH, (i - yMax / (yMin - yMax)) * HEIGHT);
-        SDL_RenderDrawPoint(rend, (-xMin / (xMax - xMin)) * WIDTH, (-i - yMax / (yMin - yMax)) * HEIGHT);
-    }
 
     return;
 }
@@ -100,19 +94,13 @@ void DotGraph::refresh()
 
         while ((equations[i])(x, y) && x < xMax)
         {
-            // Transpose point for rendering
-            realX = ((x - xMin) / (xMax - xMin)) * WIDTH;
-            realY = ((y - yMax) / (yMin - yMax)) * HEIGHT;
-
-            // Set color and plot point
+            convertPoint(x, y, realX, realY);
             SDL_RenderDrawPoint(rend, realX, realY);
 
             steps++;
             if (steps > 100000)
                 throw runtime_error("Cannot graph: Ensure your equation modifies x.");
         }
-
-        // cout << '\r' << "Steps: " << steps << "      " << flush;
     }
 
     SDL_RenderPresent(rend);
@@ -155,16 +143,14 @@ void LineGraph::refresh()
 
         while ((equations[i])(x, y) && x < xMax)
         {
-            // Transpose point for rendering
-            realX = ((x - xMin) / (xMax - xMin)) * WIDTH;
-            realY = ((y - yMax) / (yMin - yMax)) * HEIGHT;
+            convertPoint(x, y, realX, realY);
 
             // Log point
             eqData.push_back(Point(realX, realY));
 
             steps++;
             if (steps > 100000)
-                throw runtime_error("Cannot graph: Ensure your equation modifies x.");
+                throw runtime_error("Cannot graph: Ensure your equation is bounded.");
         }
 
         points.push_back(eqData);

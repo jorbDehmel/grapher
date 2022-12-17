@@ -1,15 +1,17 @@
 #include "graph.hpp"
 
-#include <iostream>
-#include <map>
-
 //////////////////////////////
 
-unsigned int HEIGHT = 256, WIDTH = 256;
-double UPSCALING_X = 4, UPSCALING_Y = 4;
-char TITLE[64] = "Jorb Grapher 0.01";
+namespace graph
+{
+    unsigned int HEIGHT = 256, WIDTH = 256;
+    double UPSCALING_X = 4, UPSCALING_Y = 4;
+    char TITLE[64] = "Jorb Grapher 0.01";
 
-bool SDL_IS_INITIALIZED = false;
+    bool SDL_IS_INITIALIZED = false;
+}
+
+using namespace graph;
 
 //////////////////////////////
 
@@ -29,8 +31,6 @@ Graph::Graph()
     rend = SDL_CreateRenderer(wind, 0, 1);
     SDL_SetWindowSize(wind, WIDTH * UPSCALING_X, HEIGHT * UPSCALING_Y);
     SDL_RenderSetScale(rend, UPSCALING_X, UPSCALING_Y);
-
-    equations.clear();
 
     return;
 }
@@ -106,13 +106,6 @@ void DotGraph::refresh()
 }
 
 //////////////////////////////
-
-struct Point
-{
-    Point(double X, double Y) : x(X), y(Y) {}
-    Point(const Point &other) : x(other.x), y(other.y) {}
-    double x, y;
-};
 
 void LineGraph::refresh()
 {

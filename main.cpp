@@ -1,4 +1,4 @@
-#include "graph.hpp"
+#include "slopefield.hpp"
 
 #include <iostream>
 #include <cmath>
@@ -9,30 +9,17 @@ double t = 0;
 double xOffset = 0;
 double yOffset = 0;
 
-bool a(double &x, double &y)
+double dy(double &x, double &y)
 {
-    y = 5 * sin(t) + yOffset;
-    x = 5 * cos(t) + xOffset;
-
-    t += .001;
-
-    if (t > 7)
-    {
-        t = 0;
-        return false;
-    }
-    else
-    {
-        return true;
-    }
+    return x + y;
 }
 
 int main()
 {
     set<SDL_Keycode> keys;
-    BarGraph g;
+    SlopeField g;
 
-    g.equations.push_back(a);
+    g.equations.push_back(dy);
 
     g.colors.push_back(Pixel(255, 0, 0, 255));
 
@@ -50,7 +37,7 @@ int main()
                 if (event.key.keysym.sym == 27)
                     isRunning = false;
                 keys.insert(event.key.keysym.sym);
-                cout << event.key.keysym.sym << '\n';
+                // cout << event.key.keysym.sym << '\n';
                 break;
             default:
                 keys.erase(event.key.keysym.sym);

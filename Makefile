@@ -1,47 +1,44 @@
-BUILD = build/
-BIN = bin/
+#####################################
+
 STEM = clang++ -pedantic -Wall `sdl2-config --cflags --libs`
 
 #####################################
 
-$(BIN)sfmain.out:	$(BUILD)sfmain.o $(BUILD)graph.o $(BUILD)slopefield.o
-	$(STEM) $(BUILD)sfmain.o $(BUILD)graph.o $(BUILD)slopefield.o -o $(BIN)sfmain.out
+bin/sfmain.out:	build/sfmain.o bin/jgraph.a
+	$(STEM) -o bin/sfmain.out build/sfmain.o bin/jgraph.a
 
-$(BIN)barmain.out:	$(BUILD)barmain.o $(BUILD)graph.o
-	$(STEM) $(BUILD)barmain.o $(BUILD)graph.o -o $(BIN)barmain.out
+bin/barmain.out:	build/barmain.o bin/jgraph.a
+	$(STEM) -o bin/barmain.out build/barmain.o bin/jgraph.a
 
-$(BIN)dotmain.out:	$(BUILD)dotmain.o $(BUILD)graph.o $(BUILD)slopefield.o
-	$(STEM) $(BUILD)dotmain.o $(BUILD)graph.o $(BUILD)slopefield.o -o $(BIN)dotmain.out
+bin/dotmain.out:	build/dotmain.o bin/jgraph.a
+	$(STEM) -o bin/dotmain.out build/dotmain.o bin/jgraph.a
 
-$(BIN)linemain.out:	$(BUILD)linemain.o $(BUILD)graph.o
-	$(STEM) $(BUILD)linemain.o $(BUILD)graph.o -o $(BIN)linemain.out
-
-#####################################
-
-$(BUILD)sfmain.o:	demos/sfmain.cpp graph.hpp slopefield.hpp
-	$(STEM) -c demos/sfmain.cpp -o $(BUILD)sfmain.o
-
-$(BUILD)barmain.o:	demos/barmain.cpp graph.hpp
-	$(STEM) -c demos/barmain.cpp -o $(BUILD)barmain.o
-
-$(BUILD)dotmain.o:	demos/dotmain.cpp graph.hpp
-	$(STEM) -c demos/dotmain.cpp -o $(BUILD)dotmain.o
-
-$(BUILD)linemain.o:	demos/linemain.cpp graph.hpp
-	$(STEM) -c demos/linemain.cpp -o $(BUILD)linemain.o
+bin/linemain.out:	build/linemain.o bin/jgraph.a
+	$(STEM) -o bin/linemain.out build/linemain.o bin/jgraph.a
 
 #####################################
 
-$(BUILD)graph.o:	graph.cpp graph.hpp
-	$(STEM) -c graph.cpp -o $(BUILD)graph.o
+bin/jgraph.a:	/usr/include/jgraph/bin/jgraph.a
+	cp /usr/include/jgraph/bin/jgraph.a bin/jgraph.a
 
-$(BUILD)slopefield.o:	slopefield.cpp slopefield.hpp
-	$(STEM) -c slopefield.cpp -o $(BUILD)slopefield.o
+#####################################
+
+build/sfmain.o:	demos/sfmain.cpp
+	$(STEM) -c demos/sfmain.cpp -o build/sfmain.o
+
+build/barmain.o:	demos/barmain.cpp
+	$(STEM) -c demos/barmain.cpp -o build/barmain.o
+
+build/dotmain.o:	demos/dotmain.cpp
+	$(STEM) -c demos/dotmain.cpp -o build/dotmain.o
+
+build/linemain.o:	demos/linemain.cpp
+	$(STEM) -c demos/linemain.cpp -o build/linemain.o
 
 #####################################
 
 clean:
-	rm $(BUILD)/*.o
+	rm build//*.o
 
 pclean:
-	rm $(BUILD)/* $(BIN)/*
+	rm build//* bin//*

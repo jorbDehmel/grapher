@@ -1,4 +1,4 @@
-#include "slopefield.hpp"
+#include "../slopefield.hpp"
 
 void SlopeField::refresh()
 {

@@ -5,13 +5,18 @@
 
 //////////////////////////////
 
+// A slope field graph, with the slope at a point (x, y) being represented
+// by a scaled down vector
 class SlopeField : public Graph
 {
 public:
     SlopeField() : Graph() {}
+
+    // Update the graph window
     void refresh();
 
-    vector<double (*)(double &x, double &y)> equations;
+    // List of equations to graph
+    vector<double (*)(const double x, const double y)> equations;
 };
 
 //////////////////////////////

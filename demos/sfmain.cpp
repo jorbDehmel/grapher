@@ -4,7 +4,7 @@
 #include <cmath>
 #include <set>
 
-double dy(double &x, double &y)
+double dy(const double x, const double y)
 {
     return x + y;
 }

@@ -25,6 +25,9 @@ namespace graph
 
     // Line width for graphing
     extern double LINE_W;
+
+    // How far apart to draw ticks
+    extern double TICK_SPACING_X, TICK_SPACING_Y;
 }
 
 //////////////////////////////

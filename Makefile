@@ -38,7 +38,7 @@ build/linemain.o:	demos/linemain.cpp
 #####################################
 
 clean:
-	rm build//*.o
+	rm build/*.o
 
 pclean:
-	rm build//* bin//*
+	rm build/* bin/*

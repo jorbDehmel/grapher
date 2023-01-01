@@ -5,11 +5,13 @@
 namespace graph
 {
     unsigned int HEIGHT = 256, WIDTH = 256;
-    double UPSCALING_X = 4, UPSCALING_Y = 4;
+    double UPSCALING_X = 2, UPSCALING_Y = 2;
     char TITLE[64] = "Jorb Grapher 0.01";
 
     bool SDL_IS_INITIALIZED = false;
     double LINE_W = 1;
+    double TICK_SPACING_X = 1;
+    double TICK_SPACING_Y = 1;
 }
 
 using namespace graph;
@@ -120,6 +122,26 @@ void Graph::refresh()
 {
     SDL_SetRenderDrawColor(rend, bgc.r, bgc.g, bgc.b, bgc.a);
     SDL_RenderClear(rend);
+
+    // Draw ticks
+    SDL_SetRenderDrawColor(rend, 192, 192, 192, 255);
+    for (int x = 0; x < xMax; x += TICK_SPACING_X)
+    {
+        drawLine(rend, ((x - xMin) / (xMax - xMin)) * WIDTH, 0, ((x - xMin) / (xMax - xMin)) * WIDTH, HEIGHT);
+    }
+    for (int x = 0; x > xMin; x -= TICK_SPACING_X)
+    {
+        drawLine(rend, ((x - xMin) / (xMax - xMin)) * WIDTH, 0, ((x - xMin) / (xMax - xMin)) * WIDTH, HEIGHT);
+    }
+
+    for (int y = 0; y < yMax; y += TICK_SPACING_Y)
+    {
+        drawLine(rend, 0, ((y - yMax) / (yMin - yMax)) * HEIGHT, WIDTH, ((y - yMax) / (yMin - yMax)) * HEIGHT);
+    }
+    for (int y = 0; y > yMin; y -= TICK_SPACING_Y)
+    {
+        drawLine(rend, 0, ((y - yMax) / (yMin - yMax)) * HEIGHT, WIDTH, ((y - yMax) / (yMin - yMax)) * HEIGHT);
+    }
 
     // Draw axii
     SDL_SetRenderDrawColor(rend, 0, 0, 0, 255);

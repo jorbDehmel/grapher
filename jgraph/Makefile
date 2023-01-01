@@ -31,11 +31,3 @@ build/slopefield.o:	src/slopefield.cpp slopefield.hpp
 	$(STEM) -c src/slopefield.cpp -o build/slopefield.o
 
 #####################################
-
-clean:
-	rm $(BUILD)/*.o
-
-pclean:
-	rm $(BUILD)/* $(BIN)/*
-
-#####################################

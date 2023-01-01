@@ -5,6 +5,7 @@ STEM = clang++ -pedantic -Wall `sdl2-config --cflags --libs`
 #####################################
 
 install:	bin/jgraph.a
+	sudo apt install libsdl2-dev
 	sudo rm -rf /usr/include/jgraph
 	sudo cp -r . /usr/include/jgraph
 

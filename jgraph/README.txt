@@ -8,6 +8,19 @@ jdehmel@outlook.com
 github.com/jorbDehmel/jgraph
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Installation:
+
+    This library only supports Linux. It requires SDL2,
+which will need to be required before this.
+
+    To install this library, open this folder in
+terminal and enter `make install`. From then on, you can
+use the following in your C++ files:
+
+    #include <jgraph/jgraph.hpp>
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 Compiling:
 
     You must include /usr/include/jgraph/bin/jgraph.a as

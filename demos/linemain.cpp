@@ -1,4 +1,4 @@
-#include "slopefield.hpp"
+#include "../slopefield.hpp"
 
 #include <iostream>
 #include <cmath>
@@ -25,7 +25,7 @@ int main()
 {
     set<SDL_Keycode> keys;
 
-    BarGraph g;
+    LineGraph g;
 
     g.equations.push_back(a);
 

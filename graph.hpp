@@ -15,20 +15,14 @@ namespace graph
     extern char TITLE[64];
 
     extern bool SDL_IS_INITIALIZED;
+    extern double LINE_W;
 }
 
 //////////////////////////////
 
 SDL_Color makeColor(const Uint8 &r, const Uint8 &g, const Uint8 &b, const Uint8 &a);
 
-class GraphFunction
-{
-public:
-    GraphFunction(bool (*func)(double &, double &)) : eval(func) {}
-
-    // bool operator()() { return eval(); }
-    bool (*eval)(double &, double &);
-};
+void drawLine(SDL_Renderer *rend, double x1, double y1, double x2, double y2);
 
 //////////////////////////////
 

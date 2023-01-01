@@ -23,7 +23,7 @@ void SlopeField::refresh()
                 convertPoint(x, y, realX, realY);
                 convertPoint(x + .5, y + (dy * .5), realX2, realY2);
 
-                SDL_RenderDrawLineF(rend, realX, realY, realX2, realY2);
+                drawLine(rend, realX, realY, realX2, realY2);
             }
         }
     }

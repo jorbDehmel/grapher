@@ -9,6 +9,7 @@ namespace graph
     char TITLE[64] = "Jorb Grapher 0.01";
 
     bool SDL_IS_INITIALIZED = false;
+    double LINE_W = 1;
 }
 
 using namespace graph;
@@ -27,6 +28,52 @@ SDL_Color makeColor(const Uint8 &r, const Uint8 &g, const Uint8 &b, const Uint8 
 }
 
 //////////////////////////////
+
+void drawLine(SDL_Renderer *rend, double x1, double y1, double x2, double y2)
+{
+    if (x1 == x2)
+    {
+        SDL_FRect temp;
+
+        temp.x = x1;
+        temp.y = y1;
+        temp.w = LINE_W;
+        temp.h = (y2 - y1);
+
+        SDL_RenderDrawRectF(rend, &temp);
+        return;
+    }
+    else
+    {
+        if (x2 < x1)
+        {
+            double tempx = x1;
+            x1 = x2;
+            x2 = tempx;
+
+            double tempy = y1;
+            y1 = y2;
+            y2 = tempy;
+        }
+
+        SDL_FRect temp;
+        double dydx = (y2 - y1) / (x2 - x1);
+        double curY = y1;
+        for (double x = x1; x < x2; x += LINE_W)
+        {
+            temp.x = x;
+            temp.w = LINE_W;
+            temp.y = curY;
+            temp.h = dydx;
+
+            curY += dydx;
+
+            SDL_RenderDrawRectF(rend, &temp);
+        }
+    }
+
+    return;
+}
 
 Graph::Graph()
 {
@@ -76,8 +123,8 @@ void Graph::refresh()
 
     // Draw axii
     SDL_SetRenderDrawColor(rend, 0, 0, 0, 255);
-    SDL_RenderDrawLineF(rend, (-xMin / (xMax - xMin)) * WIDTH, 0, (-xMin / (xMax - xMin)) * WIDTH, HEIGHT);
-    SDL_RenderDrawLineF(rend, 0, (-yMax / (yMin - yMax)) * HEIGHT, WIDTH, (-yMax / (yMin - yMax)) * HEIGHT);
+    drawLine(rend, (-xMin / (xMax - xMin)) * WIDTH, 0, (-xMin / (xMax - xMin)) * WIDTH, HEIGHT);
+    drawLine(rend, 0, (-yMax / (yMin - yMax)) * HEIGHT, WIDTH, (-yMax / (yMin - yMax)) * HEIGHT);
 
     return;
 }
@@ -94,6 +141,7 @@ void DotGraph::refresh()
     double x;
     double y;
 
+    SDL_FRect rect;
     for (int i = 0; i < equations.size(); i++)
     {
         SDL_Color color = colors[i % (colors.size() + 1)];
@@ -106,7 +154,11 @@ void DotGraph::refresh()
         while ((equations[i])(x, y) && x < xMax)
         {
             convertPoint(x, y, realX, realY);
-            SDL_RenderDrawPoint(rend, realX, realY);
+
+            rect.x = realX - (LINE_W / 2.0);
+            rect.y = realY - (LINE_W / 2.0);
+            rect.w = rect.h = LINE_W;
+            SDL_RenderDrawRectF(rend, &rect);
 
             steps++;
             if (steps > 100000)
@@ -171,7 +223,7 @@ void LineGraph::refresh()
         {
             SDL_Point a = points[i][j], b = points[i][j + 1];
 
-            SDL_RenderDrawLineF(rend, a.x, a.y, b.x, b.y);
+            drawLine(rend, a.x, a.y, b.x, b.y);
         }
     }
 

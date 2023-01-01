@@ -1,4 +1,4 @@
-#include "slopefield.hpp"
+#include "../slopefield.hpp"
 
 #include <iostream>
 #include <cmath>

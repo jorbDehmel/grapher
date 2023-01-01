@@ -19,19 +19,15 @@ namespace graph
 
 //////////////////////////////
 
-class Pixel
+SDL_Color makeColor(const Uint8 &r, const Uint8 &g, const Uint8 &b, const Uint8 &a);
+
+class GraphFunction
 {
 public:
-    Pixel() : r(0), g(0), b(0), a(0) {}
-    Pixel(unsigned char R, unsigned char G, unsigned char B, unsigned char A) : r(R), g(G), b(B), a(A) {}
-    unsigned char r, g, b, a;
-};
+    GraphFunction(bool (*func)(double &, double &)) : eval(func) {}
 
-struct Point
-{
-    Point(double X, double Y) : x(X), y(Y) {}
-    Point(const Point &other) : x(other.x), y(other.y) {}
-    double x, y;
+    // bool operator()() { return eval(); }
+    bool (*eval)(double &, double &);
 };
 
 //////////////////////////////
@@ -43,10 +39,10 @@ public:
     ~Graph();
     void refresh();
 
-    Pixel bgc;
+    SDL_Color bgc;
 
     double xMin, xMax, yMin, yMax;
-    vector<Pixel> colors;
+    vector<SDL_Color> colors;
 
 protected:
     void convertPoint(const double &, const double &, double &, double &);

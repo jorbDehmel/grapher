@@ -15,9 +15,23 @@ using namespace graph;
 
 //////////////////////////////
 
+SDL_Color makeColor(const Uint8 &r, const Uint8 &g, const Uint8 &b, const Uint8 &a)
+{
+    SDL_Color out;
+    out.r = r;
+    out.g = g;
+    out.b = b;
+    out.a = a;
+
+    return out;
+}
+
+//////////////////////////////
+
 Graph::Graph()
 {
-    bgc = Pixel(255, 255, 255, 255);
+    bgc.r = bgc.g = bgc.b = bgc.a = 255;
+
     xMin = yMin = -10;
     xMax = yMax = 10;
 
@@ -62,8 +76,8 @@ void Graph::refresh()
 
     // Draw axii
     SDL_SetRenderDrawColor(rend, 0, 0, 0, 255);
-    SDL_RenderDrawLine(rend, (-xMin / (xMax - xMin)) * WIDTH, 0, (-xMin / (xMax - xMin)) * WIDTH, HEIGHT);
-    SDL_RenderDrawLine(rend, 0, (-yMax / (yMin - yMax)) * HEIGHT, WIDTH, (-yMax / (yMin - yMax)) * HEIGHT);
+    SDL_RenderDrawLineF(rend, (-xMin / (xMax - xMin)) * WIDTH, 0, (-xMin / (xMax - xMin)) * WIDTH, HEIGHT);
+    SDL_RenderDrawLineF(rend, 0, (-yMax / (yMin - yMax)) * HEIGHT, WIDTH, (-yMax / (yMin - yMax)) * HEIGHT);
 
     return;
 }
@@ -82,7 +96,7 @@ void DotGraph::refresh()
 
     for (int i = 0; i < equations.size(); i++)
     {
-        Pixel color = colors[i % (colors.size() + 1)];
+        SDL_Color color = colors[i % (colors.size() + 1)];
         SDL_SetRenderDrawColor(rend, color.r, color.g, color.b, color.a);
 
         steps = 0;
@@ -117,12 +131,12 @@ void LineGraph::refresh()
     double x;
     double y;
 
-    vector<vector<Point>> points;
+    vector<vector<SDL_Point>> points;
 
     // Prepare data
     for (int i = 0; i < equations.size(); i++)
     {
-        vector<Point> eqData;
+        vector<SDL_Point> eqData;
 
         steps = 0;
         x = xMin;
@@ -133,7 +147,11 @@ void LineGraph::refresh()
             convertPoint(x, y, realX, realY);
 
             // Log point
-            eqData.push_back(Point(realX, realY));
+            SDL_Point temp;
+            temp.x = realX;
+            temp.y = realY;
+
+            eqData.push_back(temp);
 
             steps++;
             if (steps > 100000)
@@ -146,14 +164,14 @@ void LineGraph::refresh()
     // Graph data
     for (int i = 0; i < points.size(); i++)
     {
-        Pixel color = colors[i % (colors.size() + 1)];
+        SDL_Color color = colors[i % (colors.size() + 1)];
         SDL_SetRenderDrawColor(rend, color.r, color.g, color.b, color.a);
 
         for (int j = 0; j + 1 < points[i].size(); j++)
         {
-            Point a = points[i][j], b = points[i][j + 1];
+            SDL_Point a = points[i][j], b = points[i][j + 1];
 
-            SDL_RenderDrawLine(rend, a.x, a.y, b.x, b.y);
+            SDL_RenderDrawLineF(rend, a.x, a.y, b.x, b.y);
         }
     }
 
@@ -174,12 +192,12 @@ void BarGraph::refresh()
     double x;
     double y;
 
-    vector<vector<Point>> points;
+    vector<vector<SDL_Point>> points;
 
     // Prepare data
     for (int i = 0; i < equations.size(); i++)
     {
-        vector<Point> eqData;
+        vector<SDL_Point> eqData;
 
         steps = 0;
         x = xMin;
@@ -190,7 +208,11 @@ void BarGraph::refresh()
             convertPoint(x, y, realX, realY);
 
             // Log point
-            eqData.push_back(Point(realX, realY));
+            SDL_Point temp;
+            temp.x = realX;
+            temp.y = realY;
+
+            eqData.push_back(temp);
 
             steps++;
             if (steps > 100000)
@@ -203,12 +225,12 @@ void BarGraph::refresh()
     // Graph data
     for (int i = 0; i < points.size(); i++)
     {
-        Pixel color = colors[i % (colors.size() + 1)];
+        SDL_Color color = colors[i % (colors.size() + 1)];
         SDL_SetRenderDrawColor(rend, color.r, color.g, color.b, color.a);
 
         for (int j = 0; j + 1 < points[i].size(); j++)
         {
-            Point a = points[i][j], b = points[i][j + 1];
+            SDL_Point a = points[i][j], b = points[i][j + 1];
 
             SDL_Rect r;
 
@@ -218,7 +240,7 @@ void BarGraph::refresh()
             r.w = b.x - a.x;
             r.h = a.y - (-yMax / (yMin - yMax)) * HEIGHT;
 
-            SDL_RenderDrawRect(rend, &r);
+            SDL_RenderFillRect(rend, &r);
         }
     }
 

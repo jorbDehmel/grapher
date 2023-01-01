@@ -25,7 +25,7 @@ int main()
 {
     set<SDL_Keycode> keys;
 
-    LineGraph g;
+    BarGraph g;
 
     g.equations.push_back(a);
 

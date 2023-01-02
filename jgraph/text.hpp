@@ -12,7 +12,7 @@ using namespace std;
 class Writer
 {
 public:
-    Writer(SDL_Window *Wind, SDL_Renderer *Rend, const char *Path, const int Points);
+    Writer(SDL_Renderer *Rend, const char *Path, const int Points);
     ~Writer();
 
     void write(const string what, const double x, const double y, SDL_Color color);
@@ -20,7 +20,6 @@ public:
     map<string, SDL_Texture *> surfaces;
 
 protected:
-    SDL_Window *wind;
     SDL_Renderer *rend;
     TTF_Font *font;
 };

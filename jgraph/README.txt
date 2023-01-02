@@ -100,6 +100,13 @@ for this type of equation.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Included font credit of
+https://www.fontspace.com/geelynedits
+via
+https://www.fontspace.com/pixelletters-font-f22954
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 License (via MIT)
 
 Copyright © 2022 Jordan Dehmel

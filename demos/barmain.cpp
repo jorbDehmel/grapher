@@ -34,13 +34,13 @@ int main()
     SDL_Event event;
     bool isRunning = true;
 
-    //Writer words(g.wind, g.rend, "demos/path.ttf", 15);
+    Writer words(g.rend, "/usr/include/jgraph/fonts/pixelletters/Pixellettersfull-BnJ5.ttf", 20);
 
     while (isRunning)
     {
         g.refresh();
 
-        //words.write("TEXT HERE", 0, 0, makeColor(0, 0, 0, 255));
+        words.write(graph::TITLE, 0, 0, makeColor(0, 0, 0, 255));
 
         SDL_RenderPresent(g.rend);
 

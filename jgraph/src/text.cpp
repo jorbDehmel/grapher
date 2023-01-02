@@ -2,9 +2,8 @@
 #include <iostream>
 using namespace std;
 
-Writer::Writer(SDL_Window *Wind, SDL_Renderer *Rend, const char *Path, const int Points)
+Writer::Writer(SDL_Renderer *Rend, const char *Path, const int Points)
 {
-    wind = Wind;
     rend = Rend;
     surfaces.clear();
 

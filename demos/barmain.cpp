@@ -45,7 +45,16 @@ int main()
                 if (event.key.keysym.sym == 27)
                     isRunning = false;
                 if (event.key.keysym.sym == 's')
-                    g.screenShot("screenshot.bmp");
+                {
+                    g.screenShot("bar.bmp");
+                    cout << "Screenshot taken.\n";
+                }
+                if (event.key.keysym.sym == 'c')
+                {
+                    g.csv("bar.csv");
+                    cout << "CSV saved.\n";
+                }
+
                 keys.insert(event.key.keysym.sym);
                 break;
             default:

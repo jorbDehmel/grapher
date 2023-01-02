@@ -4,21 +4,12 @@
 #include <cmath>
 #include <set>
 
-double t = 0;
 bool a(double &x, double &y)
 {
-    t += .1;
+    x += .01;
+    y = 10 * cos(x);
 
-    x = 10 * sin(t);
-    y = 10 * cos(t);
-
-    if (t < 7)
-        return true;
-    else
-    {
-        t = 0;
-        return false;
-    }
+    return true;
 }
 
 int main()
@@ -46,7 +37,16 @@ int main()
                 if (event.key.keysym.sym == 27)
                     isRunning = false;
                 if (event.key.keysym.sym == 's')
-                    g.screenShot("screenshot.bmp");
+                {
+                    g.screenShot("dot.bmp");
+                    cout << "Screenshot taken.\n";
+                }
+                if (event.key.keysym.sym == 'c')
+                {
+                    g.csv("dot.csv");
+                    cout << "CSV saved.\n";
+                }
+
                 keys.insert(event.key.keysym.sym);
                 break;
             default:

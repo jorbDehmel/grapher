@@ -10,10 +10,13 @@
 class SlopeField : public Graph
 {
 public:
-    SlopeField() : Graph() {}
+    SlopeField() : Graph(){};
 
     // Update the graph window
     void refresh();
+
+    // Save graph data to a csv file
+    void csv(const char *where) const;
 
     // List of equations to graph
     vector<double (*)(const double x, const double y)> equations;

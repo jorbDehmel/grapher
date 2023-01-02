@@ -1,5 +1,7 @@
 #include "../slopefield.hpp"
 
+//////////////////////////////
+
 void SlopeField::refresh()
 {
     this->Graph::refresh();
@@ -32,3 +34,41 @@ void SlopeField::refresh()
 
     return;
 }
+
+void SlopeField::csv(const char *where) const
+{
+    ofstream out(where);
+    if (!out.is_open())
+        throw runtime_error("Could not open CSV file");
+
+    int steps;
+    double x;
+    double y;
+
+    for (int i = 0; i < equations.size(); i++)
+    {
+        string xLine, yLine, dyLine;
+        xLine += "x" + to_string(i) + ", ";
+        yLine += "y" + to_string(i) + ", ";
+        dyLine += "dy" + to_string(i) + ", ";
+
+        for (double x = xMin; x < xMax; x++)
+        {
+            for (double y = yMin; y < yMax; y++)
+            {
+                xLine += to_string(x) + ", ";
+                yLine += to_string(y) + ", ";
+                dyLine += to_string((equations[i])(x, y)) + ", ";
+            }
+        }
+
+        out << xLine << '\n'
+            << yLine << '\n'
+            << dyLine << '\n';
+    }
+
+    out.close();
+    return;
+}
+
+//////////////////////////////

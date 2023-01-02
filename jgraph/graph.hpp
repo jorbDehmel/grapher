@@ -5,6 +5,8 @@
 #include <vector>
 #include <stdexcept>
 #include <iostream>
+#include <fstream>
+#include <sstream>
 using namespace std;
 
 //////////////////////////////
@@ -88,6 +90,9 @@ public:
     // Update the graph window
     void refresh();
 
+    // Save graph data to a csv file
+    void csv(const char *where) const;
+
     // List of equations to graph
     vector<bool (*)(double &, double &)> equations;
 };
@@ -103,6 +108,9 @@ public:
     // Update the graph window
     void refresh();
 
+    // Save graph data to a csv file
+    void csv(const char *where) const;
+
     // List of equations to graph
     vector<bool (*)(double &, double &)> equations;
 };
@@ -117,6 +125,9 @@ public:
 
     // Update the graph window
     void refresh();
+
+    // Save graph data to a csv file
+    void csv(const char *where) const;
 
     // List of equations to graph
     vector<bool (*)(double &, double &)> equations;

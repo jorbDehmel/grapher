@@ -215,6 +215,44 @@ void DotGraph::refresh()
     return;
 }
 
+void DotGraph::csv(const char *where) const
+{
+    ofstream out(where);
+    if (!out.is_open())
+        throw runtime_error("Could not open CSV file");
+
+    int steps;
+    double x;
+    double y;
+
+    for (int i = 0; i < equations.size(); i++)
+    {
+        x = xMin;
+        y = yMin;
+
+        /*
+        i am lord heljehe dejahn
+        Frog tans are in ryt
+        */
+
+        string xLine, yLine;
+        xLine += "x" + to_string(i) + ", ";
+        yLine += "y" + to_string(i) + ", ";
+
+        while ((equations[i])(x, y) && x < xMax)
+        {
+            xLine += to_string(x) + ", ";
+            yLine += to_string(y) + ", ";
+        }
+
+        out << xLine << '\n'
+            << yLine << '\n';
+    }
+
+    out.close();
+    return;
+}
+
 //////////////////////////////
 
 void LineGraph::refresh()
@@ -273,6 +311,44 @@ void LineGraph::refresh()
 
     SDL_RenderPresent(rend);
 
+    return;
+}
+
+void LineGraph::csv(const char *where) const
+{
+    ofstream out(where);
+    if (!out.is_open())
+        throw runtime_error("Could not open CSV file");
+
+    int steps;
+    double x;
+    double y;
+
+    for (int i = 0; i < equations.size(); i++)
+    {
+        x = xMin;
+        y = yMin;
+
+        /*
+        i am lord heljehe dejahn
+        Frog tans are in ryt
+        */
+
+        string xLine, yLine;
+        xLine += "x" + to_string(i) + ", ";
+        yLine += "y" + to_string(i) + ", ";
+
+        while ((equations[i])(x, y) && x < xMax)
+        {
+            xLine += to_string(x) + ", ";
+            yLine += to_string(y) + ", ";
+        }
+
+        out << xLine << '\n'
+            << yLine << '\n';
+    }
+
+    out.close();
     return;
 }
 
@@ -344,3 +420,43 @@ void BarGraph::refresh()
 
     return;
 }
+
+void BarGraph::csv(const char *where) const
+{
+    ofstream out(where);
+    if (!out.is_open())
+        throw runtime_error("Could not open CSV file");
+
+    int steps;
+    double x;
+    double y;
+
+    for (int i = 0; i < equations.size(); i++)
+    {
+        x = xMin;
+        y = yMin;
+
+        /*
+        i am lord heljehe dejahn
+        Frog tans are in ryt
+        */
+
+        string xLine, yLine;
+        xLine += "x" + to_string(i) + ", ";
+        yLine += "y" + to_string(i) + ", ";
+
+        while ((equations[i])(x, y) && x < xMax)
+        {
+            xLine += to_string(x) + ", ";
+            yLine += to_string(y) + ", ";
+        }
+
+        out << xLine << '\n'
+            << yLine << '\n';
+    }
+
+    out.close();
+    return;
+}
+
+//////////////////////////////

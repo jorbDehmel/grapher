@@ -2,6 +2,8 @@
 #define GRAPH_H
 
 #include <SDL2/SDL.h>
+#include "text.hpp"
+
 #include <vector>
 #include <stdexcept>
 #include <iostream>
@@ -31,6 +33,14 @@ namespace graph
 
     // How far apart to draw ticks
     extern double TICK_SPACING_X, TICK_SPACING_Y;
+
+    extern char *FONT_PATH;
+
+    extern int FONT_POINTS;
+
+    extern int LABEL_LENGTH;
+
+    extern bool DRAW_LABELS;
 }
 
 //////////////////////////////
@@ -71,6 +81,9 @@ public:
     // Underlying SDL2 renderer
     SDL_Renderer *rend;
 
+    // Text added
+    Writer *writer;
+
 protected:
     // Convert a point from actual coords to graphing coords
     void convertPoint(const double &, const double &, double &, double &);
@@ -88,7 +101,7 @@ public:
     DotGraph() : Graph() {}
 
     // Update the graph window
-    void refresh();
+    void refresh(bool present = true);
 
     // Save graph data to a csv file
     void csv(const char *where) const;
@@ -106,7 +119,7 @@ public:
     LineGraph() : Graph() {}
 
     // Update the graph window
-    void refresh();
+    void refresh(bool present = true);
 
     // Save graph data to a csv file
     void csv(const char *where) const;
@@ -124,7 +137,7 @@ public:
     BarGraph() : Graph() {}
 
     // Update the graph window
-    void refresh();
+    void refresh(bool present = true);
 
     // Save graph data to a csv file
     void csv(const char *where) const;

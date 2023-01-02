@@ -12,9 +12,27 @@ namespace graph
     double LINE_W = 1;
     double TICK_SPACING_X = 1;
     double TICK_SPACING_Y = 1;
+
+    char *FONT_PATH = "/usr/include/jgraph/fonts/pixelletters/Pixellettersfull-BnJ5.ttf";
+    int FONT_POINTS = 10;
+
+    int LABEL_LENGTH = 5;
+    bool DRAW_LABELS = true;
 }
 
 using namespace graph;
+
+//////////////////////////////
+
+string formatDouble(const double what)
+{
+    string raw = to_string(what);
+    
+    if (what < 0)
+        return raw.substr(0, LABEL_LENGTH + 1);
+    else
+        return raw.substr(0, LABEL_LENGTH);
+}
 
 //////////////////////////////
 
@@ -95,6 +113,8 @@ Graph::Graph()
     SDL_SetWindowSize(wind, WIDTH * UPSCALING_X, HEIGHT * UPSCALING_Y);
     SDL_RenderSetScale(rend, UPSCALING_X, UPSCALING_Y);
 
+    writer = new Writer(rend, FONT_PATH, FONT_POINTS * UPSCALING_X);
+
     return;
 }
 
@@ -104,6 +124,8 @@ Graph::~Graph()
     SDL_DestroyWindow(wind);
 
     SDL_Quit();
+
+    delete writer;
 
     SDL_IS_INITIALIZED = false;
 
@@ -148,6 +170,19 @@ void Graph::refresh()
     drawLine(rend, (-xMin / (xMax - xMin)) * WIDTH, 0, (-xMin / (xMax - xMin)) * WIDTH, HEIGHT);
     drawLine(rend, 0, (-yMax / (yMin - yMax)) * HEIGHT, WIDTH, (-yMax / (yMin - yMax)) * HEIGHT);
 
+
+    if (graph::DRAW_LABELS)
+    {
+        // Write labels
+        writer->write(formatDouble(xMin), 0, (-yMax / (yMin - yMax)) * HEIGHT, makeColor(0, 0, 0, 255));
+        writer->write(formatDouble(xMax), WIDTH - (FONT_POINTS * LABEL_LENGTH), (-yMax / (yMin - yMax)) * HEIGHT, makeColor(0, 0, 0, 255));
+    
+        writer->write(formatDouble(yMin), (-xMin / (xMax - xMin)) * WIDTH, HEIGHT - (2 * FONT_POINTS), makeColor(0, 0, 0, 255));
+        writer->write(formatDouble(yMax), (-xMin / (xMax - xMin)) * WIDTH, 0, makeColor(0, 0, 0, 255));
+
+        writer->write("0", (-xMin / (xMax - xMin)) * WIDTH - FONT_POINTS, (-yMax / (yMin - yMax)) * HEIGHT, makeColor(0, 0, 0, 255));
+    }
+
     return;
 }
 
@@ -175,7 +210,7 @@ ostream &operator<<(ostream &stream, Graph &g)
 
 //////////////////////////////
 
-void DotGraph::refresh()
+void DotGraph::refresh(bool present)
 {
     this->Graph::refresh();
 
@@ -209,6 +244,9 @@ void DotGraph::refresh()
                 throw runtime_error("Cannot graph: Ensure your equation modifies x.");
         }
     }
+
+    if (present)
+        SDL_RenderPresent(rend);
 
     return;
 }
@@ -252,7 +290,7 @@ void DotGraph::csv(const char *where) const
 
 //////////////////////////////
 
-void LineGraph::refresh()
+void LineGraph::refresh(bool present)
 {
     this->Graph::refresh();
 
@@ -306,6 +344,9 @@ void LineGraph::refresh()
         }
     }
 
+    if (present)
+        SDL_RenderPresent(rend);
+
     return;
 }
 
@@ -348,7 +389,7 @@ void LineGraph::csv(const char *where) const
 
 //////////////////////////////
 
-void BarGraph::refresh()
+void BarGraph::refresh(bool present)
 {
     this->Graph::refresh();
 
@@ -409,6 +450,9 @@ void BarGraph::refresh()
             SDL_RenderFillRect(rend, &r);
         }
     }
+
+    if (present)
+        SDL_RenderPresent(rend);
 
     return;
 }

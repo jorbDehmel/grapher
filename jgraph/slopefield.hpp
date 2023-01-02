@@ -13,7 +13,7 @@ public:
     SlopeField() : Graph(){};
 
     // Update the graph window
-    void refresh();
+    void refresh(bool present = true);
 
     // Save graph data to a csv file
     void csv(const char *where) const;

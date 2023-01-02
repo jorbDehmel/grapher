@@ -55,6 +55,18 @@ textWriter.write("TEXT HERE", x, y, SDL_Color COLOR);
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+The refresh method:
+
+    The refresh(bool present) method on Graph objects
+updates the graph. If the "present" parameter is true,
+it will present this updated graph to the screen. If it
+is false, you must manually call SDL_RenderPresent(rend)
+function after calling refresh. This is useful if you
+want to manually edit the graph before it is presented
+(IE adding extra text).
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 Functions and parametric equations:
 
     Graphable equations must be represented by functions

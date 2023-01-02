@@ -2,7 +2,7 @@
 
 //////////////////////////////
 
-void SlopeField::refresh()
+void SlopeField::refresh(bool present)
 {
     this->Graph::refresh();
 
@@ -30,7 +30,8 @@ void SlopeField::refresh()
         }
     }
 
-    SDL_RenderPresent(rend);
+    if (present)
+        SDL_RenderPresent(rend);
 
     return;
 }

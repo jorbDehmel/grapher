@@ -14,7 +14,7 @@ using namespace std;
 //////////////////////////////
 
 // Metavariables for graph control
-namespace graph
+namespace jgraph
 {
     // The height and width of the graph
     extern unsigned int HEIGHT, WIDTH;
@@ -34,13 +34,32 @@ namespace graph
     // How far apart to draw ticks
     extern double TICK_SPACING_X, TICK_SPACING_Y;
 
+    // Path to the .ttf font to write in
     extern char *FONT_PATH;
 
+    // Size of the font to write in
     extern int FONT_POINTS;
 
+    // Number of digits to write (excluding sign)
     extern int LABEL_LENGTH;
 
+    // Whether or not to draw the x and y axiis
+    extern bool DRAW_AXIIS;
+
+    // Whether or not to draw the ticks
+    extern bool DRAW_TICKS;
+
+    // Whether or not to draw labels
     extern bool DRAW_LABELS;
+
+    // Color to draw ticks in
+    extern SDL_Color TICK_COLOR;
+
+    // Color to draw axiis in
+    extern SDL_Color AXIS_COLOR;
+
+    // Color to draw labels in
+    extern SDL_Color LABEL_COLOR;
 }
 
 //////////////////////////////

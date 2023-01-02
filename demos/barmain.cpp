@@ -38,7 +38,7 @@ int main()
     {
         g.refresh(false);
 
-        g.writer->write(graph::TITLE, 0, 0, makeColor(0, 0, 0, 255));
+        g.writer->write(jgraph::TITLE, 0, 0, makeColor(0, 0, 0, 255));
 
         SDL_RenderPresent(g.rend);
 

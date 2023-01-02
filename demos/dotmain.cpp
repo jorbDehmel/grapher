@@ -16,6 +16,7 @@ int main()
 {
     set<SDL_Keycode> keys;
 
+    jgraph::UPSCALING_X = jgraph::UPSCALING_Y = 4;
     DotGraph g;
     cout << g << '\n';
 

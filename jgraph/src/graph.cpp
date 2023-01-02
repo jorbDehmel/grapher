@@ -2,7 +2,7 @@
 
 //////////////////////////////
 
-namespace graph
+namespace jgraph
 {
     unsigned int HEIGHT = 256, WIDTH = 256;
     double UPSCALING_X = 2, UPSCALING_Y = 2;
@@ -17,17 +17,24 @@ namespace graph
     int FONT_POINTS = 10;
 
     int LABEL_LENGTH = 5;
+
+    bool DRAW_AXIIS = true;
+    bool DRAW_TICKS = true;
     bool DRAW_LABELS = true;
+
+    SDL_Color TICK_COLOR = makeColor(192, 192, 192, 255);
+    SDL_Color AXIS_COLOR = makeColor(0, 0, 0, 255);
+    SDL_Color LABEL_COLOR = makeColor(0, 0, 0, 255);
 }
 
-using namespace graph;
+using namespace jgraph;
 
 //////////////////////////////
 
 string formatDouble(const double what)
 {
     string raw = to_string(what);
-    
+
     if (what < 0)
         return raw.substr(0, LABEL_LENGTH + 1);
     else
@@ -113,7 +120,7 @@ Graph::Graph()
     SDL_SetWindowSize(wind, WIDTH * UPSCALING_X, HEIGHT * UPSCALING_Y);
     SDL_RenderSetScale(rend, UPSCALING_X, UPSCALING_Y);
 
-    writer = new Writer(rend, FONT_PATH, FONT_POINTS * UPSCALING_X);
+    writer = new Writer(rend, FONT_PATH, FONT_POINTS);
 
     return;
 }
@@ -146,41 +153,46 @@ void Graph::refresh()
     SDL_RenderClear(rend);
 
     // Draw ticks
-    SDL_SetRenderDrawColor(rend, 192, 192, 192, 255);
-    for (int x = 0; x < xMax; x += TICK_SPACING_X)
+    if (DRAW_TICKS)
     {
-        drawLine(rend, ((x - xMin) / (xMax - xMin)) * WIDTH, 0, ((x - xMin) / (xMax - xMin)) * WIDTH, HEIGHT);
-    }
-    for (int x = 0; x > xMin; x -= TICK_SPACING_X)
-    {
-        drawLine(rend, ((x - xMin) / (xMax - xMin)) * WIDTH, 0, ((x - xMin) / (xMax - xMin)) * WIDTH, HEIGHT);
-    }
+        SDL_SetRenderDrawColor(rend, TICK_COLOR.r, TICK_COLOR.g, TICK_COLOR.b, TICK_COLOR.a);
+        for (int x = 0; x < xMax; x += TICK_SPACING_X)
+        {
+            drawLine(rend, ((x - xMin) / (xMax - xMin)) * WIDTH, 0, ((x - xMin) / (xMax - xMin)) * WIDTH, HEIGHT);
+        }
+        for (int x = 0; x > xMin; x -= TICK_SPACING_X)
+        {
+            drawLine(rend, ((x - xMin) / (xMax - xMin)) * WIDTH, 0, ((x - xMin) / (xMax - xMin)) * WIDTH, HEIGHT);
+        }
 
-    for (int y = 0; y < yMax; y += TICK_SPACING_Y)
-    {
-        drawLine(rend, 0, ((y - yMax) / (yMin - yMax)) * HEIGHT, WIDTH, ((y - yMax) / (yMin - yMax)) * HEIGHT);
-    }
-    for (int y = 0; y > yMin; y -= TICK_SPACING_Y)
-    {
-        drawLine(rend, 0, ((y - yMax) / (yMin - yMax)) * HEIGHT, WIDTH, ((y - yMax) / (yMin - yMax)) * HEIGHT);
+        for (int y = 0; y < yMax; y += TICK_SPACING_Y)
+        {
+            drawLine(rend, 0, ((y - yMax) / (yMin - yMax)) * HEIGHT, WIDTH, ((y - yMax) / (yMin - yMax)) * HEIGHT);
+        }
+        for (int y = 0; y > yMin; y -= TICK_SPACING_Y)
+        {
+            drawLine(rend, 0, ((y - yMax) / (yMin - yMax)) * HEIGHT, WIDTH, ((y - yMax) / (yMin - yMax)) * HEIGHT);
+        }
     }
 
     // Draw axii
-    SDL_SetRenderDrawColor(rend, 0, 0, 0, 255);
-    drawLine(rend, (-xMin / (xMax - xMin)) * WIDTH, 0, (-xMin / (xMax - xMin)) * WIDTH, HEIGHT);
-    drawLine(rend, 0, (-yMax / (yMin - yMax)) * HEIGHT, WIDTH, (-yMax / (yMin - yMax)) * HEIGHT);
+    if (DRAW_AXIIS)
+    {
+        SDL_SetRenderDrawColor(rend, AXIS_COLOR.r, AXIS_COLOR.g, AXIS_COLOR.b, AXIS_COLOR.a);
+        drawLine(rend, (-xMin / (xMax - xMin)) * WIDTH, 0, (-xMin / (xMax - xMin)) * WIDTH, HEIGHT);
+        drawLine(rend, 0, (-yMax / (yMin - yMax)) * HEIGHT, WIDTH, (-yMax / (yMin - yMax)) * HEIGHT);
+    }
 
-
-    if (graph::DRAW_LABELS)
+    if (DRAW_LABELS)
     {
         // Write labels
-        writer->write(formatDouble(xMin), 0, (-yMax / (yMin - yMax)) * HEIGHT, makeColor(0, 0, 0, 255));
-        writer->write(formatDouble(xMax), WIDTH - (FONT_POINTS * LABEL_LENGTH), (-yMax / (yMin - yMax)) * HEIGHT, makeColor(0, 0, 0, 255));
-    
-        writer->write(formatDouble(yMin), (-xMin / (xMax - xMin)) * WIDTH, HEIGHT - (2 * FONT_POINTS), makeColor(0, 0, 0, 255));
-        writer->write(formatDouble(yMax), (-xMin / (xMax - xMin)) * WIDTH, 0, makeColor(0, 0, 0, 255));
+        writer->write(formatDouble(xMin), 0, (-yMax / (yMin - yMax)) * HEIGHT, LABEL_COLOR);
+        writer->write(formatDouble(xMax), WIDTH - (FONT_POINTS * LABEL_LENGTH), (-yMax / (yMin - yMax)) * HEIGHT, LABEL_COLOR);
 
-        writer->write("0", (-xMin / (xMax - xMin)) * WIDTH - FONT_POINTS, (-yMax / (yMin - yMax)) * HEIGHT, makeColor(0, 0, 0, 255));
+        writer->write(formatDouble(yMin), (-xMin / (xMax - xMin)) * WIDTH, HEIGHT - (2 * FONT_POINTS), LABEL_COLOR);
+        writer->write(formatDouble(yMax), (-xMin / (xMax - xMin)) * WIDTH, 0, LABEL_COLOR);
+
+        writer->write("0", (-xMin / (xMax - xMin)) * WIDTH - FONT_POINTS, (-yMax / (yMin - yMax)) * HEIGHT, LABEL_COLOR);
     }
 
     return;

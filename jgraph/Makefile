@@ -1,18 +1,18 @@
 #####################################
 
-STEM = clang++ -pedantic -Wall `sdl2-config --cflags --libs`
+STEM = clang++ -pedantic -Wall `sdl2-config --cflags --libs` -lSDL2_ttf
 
 #####################################
 
 install:	bin/jgraph.a
-	sudo apt install libsdl2-dev
+	sudo apt install libsdl2-dev libsdl2-ttf-dev
 	sudo rm -rf /usr/include/jgraph
 	sudo cp -r . /usr/include/jgraph
 
 #####################################
 
-bin/jgraph.a:	bin/ build/ build/graph.o build/slopefield.o
-	ar rsv bin/jgraph.a build/graph.o build/slopefield.o
+bin/jgraph.a:	bin/ build/ build/graph.o build/slopefield.o build/text.o
+	ar rsv bin/jgraph.a build/graph.o build/slopefield.o build/text.o
 
 #####################################
 
@@ -29,5 +29,13 @@ build/graph.o:	src/graph.cpp graph.hpp
 
 build/slopefield.o:	src/slopefield.cpp slopefield.hpp
 	$(STEM) -c src/slopefield.cpp -o build/slopefield.o
+
+build/text.o:	src/text.cpp text.hpp
+	$(STEM) -c src/text.cpp -o build/text.o
+
+#####################################
+
+pclean:
+	rm bin/* build/*
 
 #####################################

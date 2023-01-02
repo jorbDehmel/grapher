@@ -41,10 +41,6 @@ void SlopeField::csv(const char *where) const
     if (!out.is_open())
         throw runtime_error("Could not open CSV file");
 
-    int steps;
-    double x;
-    double y;
-
     for (int i = 0; i < equations.size(); i++)
     {
         string xLine, yLine, dyLine;

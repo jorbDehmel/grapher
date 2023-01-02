@@ -210,8 +210,6 @@ void DotGraph::refresh()
         }
     }
 
-    SDL_RenderPresent(rend);
-
     return;
 }
 
@@ -221,7 +219,6 @@ void DotGraph::csv(const char *where) const
     if (!out.is_open())
         throw runtime_error("Could not open CSV file");
 
-    int steps;
     double x;
     double y;
 
@@ -309,8 +306,6 @@ void LineGraph::refresh()
         }
     }
 
-    SDL_RenderPresent(rend);
-
     return;
 }
 
@@ -320,7 +315,6 @@ void LineGraph::csv(const char *where) const
     if (!out.is_open())
         throw runtime_error("Could not open CSV file");
 
-    int steps;
     double x;
     double y;
 
@@ -416,8 +410,6 @@ void BarGraph::refresh()
         }
     }
 
-    SDL_RenderPresent(rend);
-
     return;
 }
 
@@ -427,7 +419,6 @@ void BarGraph::csv(const char *where) const
     if (!out.is_open())
         throw runtime_error("Could not open CSV file");
 
-    int steps;
     double x;
     double y;
 

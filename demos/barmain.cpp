@@ -33,9 +33,16 @@ int main()
 
     SDL_Event event;
     bool isRunning = true;
+
+    //Writer words(g.wind, g.rend, "demos/path.ttf", 15);
+
     while (isRunning)
     {
         g.refresh();
+
+        //words.write("TEXT HERE", 0, 0, makeColor(0, 0, 0, 255));
+
+        SDL_RenderPresent(g.rend);
 
         while (SDL_PollEvent(&event))
         {

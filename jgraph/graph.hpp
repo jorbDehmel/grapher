@@ -65,15 +65,15 @@ public:
     // Save a screenshot of the graph
     void screenShot(const char *where) const;
 
-protected:
-    // Convert a point from actual coords to graphing coords
-    void convertPoint(const double &, const double &, double &, double &);
-
     // Underlying SDL2 window
     SDL_Window *wind;
 
     // Underlying SDL2 renderer
     SDL_Renderer *rend;
+
+protected:
+    // Convert a point from actual coords to graphing coords
+    void convertPoint(const double &, const double &, double &, double &);
 };
 
 // Output graph details to a ostream

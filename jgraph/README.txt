@@ -27,15 +27,31 @@ Compiling:
 the FINAL argument of your compilation command (this
 file will be created upon running `make install`).
 
-    This library depends of SDL2, and therefor you must
+    This library depends on SDL2, and therefor you must
 include the following in your compilation command:
 
-    `sdl2-config --cflags --libs`
+    `sdl2-config --cflags --libs` -lSDL2_ttf
 
 For example:
 
-g++ `sdl2-config --cflags --libs` ex.cpp \
+g++ `sdl2-config --cflags --libs` -lSDL2_ttf ex.cpp \
     /usr/include/jgraph/bin/jgraph.a 
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Adding text:
+
+    To initialize a Writer object for adding text, use
+the following form:
+
+Writer textWriter(WINDOW, RENDERER, "PATH.ttf", POINTS);
+
+    Where, for a Graph g, you could use g.wind and
+g.rend to retrieve the window and renderer respectively.
+
+    To write text after this, use the form:
+
+textWriter.write("TEXT HERE", x, y, SDL_Color COLOR);
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

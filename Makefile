@@ -1,6 +1,6 @@
 #####################################
 
-STEM = clang++ -pedantic -Wall `sdl2-config --cflags --libs`
+STEM = clang++ -pedantic -Wall `sdl2-config --cflags --libs` -lSDL2_ttf
 
 #####################################
 

@@ -1,4 +1,4 @@
-#include "../jgraph/slopefield.hpp"
+#include <jgraph/jgraph.hpp>
 
 #include <iostream>
 #include <cmath>

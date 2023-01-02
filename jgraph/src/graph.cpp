@@ -168,7 +168,7 @@ ostream &operator<<(ostream &stream, Graph &g)
            << "\tDisplay dimensions: w = " << WIDTH * UPSCALING_X << ", h = " << HEIGHT * UPSCALING_Y << '\n'
            << "\tLine width: " << LINE_W << '\n'
            << "\tx scale: " << TICK_SPACING_X << ", y scale: " << TICK_SPACING_Y << '\n'
-           << "\tx range: (" << g.xMin << ", " << g.xMax << "), x range: (" << g.yMin << ", " << g.yMax << ")\n";
+           << "\tx range: (" << g.xMin << ", " << g.xMax << "), x range: (" << g.yMin << ", " << g.yMax << ")";
 
     return stream;
 }

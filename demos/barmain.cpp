@@ -26,9 +26,9 @@ int main()
     set<SDL_Keycode> keys;
 
     BarGraph g;
+    cout << g << '\n';
 
     g.equations.push_back(a);
-
     g.colors.push_back(makeColor(255, 0, 0, 255));
 
     SDL_Event event;
@@ -44,6 +44,8 @@ int main()
             case SDL_KEYDOWN:
                 if (event.key.keysym.sym == 27)
                     isRunning = false;
+                if (event.key.keysym.sym == 's')
+                    g.screenShot("screenshot.bmp");
                 keys.insert(event.key.keysym.sym);
                 break;
             default:

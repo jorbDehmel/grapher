@@ -13,6 +13,7 @@ int main()
 {
     set<SDL_Keycode> keys;
     SlopeField g;
+    cout << g << '\n';
 
     g.equations.push_back(dy);
 
@@ -31,24 +32,15 @@ int main()
             case SDL_KEYDOWN:
                 if (event.key.keysym.sym == 27)
                     isRunning = false;
+                if (event.key.keysym.sym == 's')
+                    g.screenShot("screenshot.bmp");
                 keys.insert(event.key.keysym.sym);
-                // cout << event.key.keysym.sym << '\n';
                 break;
             default:
                 keys.erase(event.key.keysym.sym);
                 break;
             }
         }
-
-        /*if (keys.count(1073741906) != 0)
-            yOffset += 1;
-        else if (keys.count(1073741904) != 0)
-            xOffset -= 1;
-        else if (keys.count(1073741905) != 0)
-            yOffset -= 1;
-        else if (keys.count(1073741903) != 0)
-            xOffset += 1;
-        */
     }
 
     return 0;

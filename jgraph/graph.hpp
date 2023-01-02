@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include <vector>
 #include <stdexcept>
+#include <iostream>
 using namespace std;
 
 //////////////////////////////
@@ -59,6 +60,9 @@ public:
     // The colors to graph (if there are multiple lines)
     vector<SDL_Color> colors;
 
+    // Save a screenshot of the graph
+    void screenShot(const char *where) const;
+
 protected:
     // Convert a point from actual coords to graphing coords
     void convertPoint(const double &, const double &, double &, double &);
@@ -69,6 +73,9 @@ protected:
     // Underlying SDL2 renderer
     SDL_Renderer *rend;
 };
+
+// Output graph details to a ostream
+ostream &operator<<(ostream &stream, Graph &g);
 
 //////////////////////////////
 

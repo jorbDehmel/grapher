@@ -26,6 +26,7 @@ int main()
     set<SDL_Keycode> keys;
 
     LineGraph g;
+    cout << g << '\n';
 
     g.equations.push_back(a);
 
@@ -44,6 +45,9 @@ int main()
             case SDL_KEYDOWN:
                 if (event.key.keysym.sym == 27)
                     isRunning = false;
+                if (event.key.keysym.sym == 's')
+                    g.screenShot("screenshot.bmp");
+
                 keys.insert(event.key.keysym.sym);
                 break;
             default:

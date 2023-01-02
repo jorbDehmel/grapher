@@ -151,6 +151,28 @@ void Graph::refresh()
     return;
 }
 
+void Graph::screenShot(const char *where) const
+{
+    SDL_Surface *sshot = SDL_CreateRGBSurface(0, WIDTH * UPSCALING_X, HEIGHT * UPSCALING_Y, 32, 0, 0, 0, 0);
+    SDL_RenderReadPixels(rend, NULL, 0, sshot->pixels, sshot->pitch);
+    SDL_SaveBMP(sshot, where);
+    SDL_FreeSurface(sshot);
+
+    return;
+}
+
+ostream &operator<<(ostream &stream, Graph &g)
+{
+    stream << "\"" << TITLE << "\"\n"
+           << "\tRendering dimensions: w = " << WIDTH << ", h = " << HEIGHT << '\n'
+           << "\tDisplay dimensions: w = " << WIDTH * UPSCALING_X << ", h = " << HEIGHT * UPSCALING_Y << '\n'
+           << "\tLine width: " << LINE_W << '\n'
+           << "\tx scale: " << TICK_SPACING_X << ", y scale: " << TICK_SPACING_Y << '\n'
+           << "\tx range: (" << g.xMin << ", " << g.xMax << "), x range: (" << g.yMin << ", " << g.yMax << ")\n";
+
+    return stream;
+}
+
 //////////////////////////////
 
 void DotGraph::refresh()

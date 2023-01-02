@@ -4,6 +4,10 @@ STEM = clang++ -pedantic -Wall `sdl2-config --cflags --libs`
 
 #####################################
 
+demos: bin/sfmain.out bin/barmain.out bin/dotmain.out bin/linemain.out
+
+#####################################
+
 bin/sfmain.out:	build/sfmain.o bin/jgraph.a
 	$(STEM) -o bin/sfmain.out build/sfmain.o bin/jgraph.a
 
@@ -20,6 +24,9 @@ bin/linemain.out:	build/linemain.o bin/jgraph.a
 
 bin/jgraph.a:	/usr/include/jgraph/bin/jgraph.a
 	cp /usr/include/jgraph/bin/jgraph.a bin/jgraph.a
+
+/usr/include/jgraph/bin/jgraph.a:
+	cd jgraph && make && cd -
 
 #####################################
 

@@ -67,9 +67,6 @@ namespace jgraph
 // Create an SDL2 color from a given rgba
 SDL_Color makeColor(const Uint8 &r, const Uint8 &g, const Uint8 &b, const Uint8 &a);
 
-// Draw a line using the width provided by LINE_W
-void drawLine(SDL_Renderer *rend, double x1, double y1, double x2, double y2);
-
 //////////////////////////////
 
 // A basic window with a graph (virtual base class)
@@ -78,6 +75,9 @@ class Graph
 public:
     Graph();
     ~Graph();
+
+    // Draw a line using appropriate line width
+    void drawLine(SDL_Renderer *rend, double x1, double y1, double x2, double y2);
 
     // Update the graph window
     void refresh();

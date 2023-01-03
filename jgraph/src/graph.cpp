@@ -5,11 +5,11 @@
 namespace jgraph
 {
     unsigned int HEIGHT = 256, WIDTH = 256;
-    double UPSCALING_X = 2, UPSCALING_Y = 2;
+    double UPSCALING_X = 1, UPSCALING_Y = 1;
     char TITLE[64] = "Jorb Grapher 0.01";
 
     bool SDL_IS_INITIALIZED = false;
-    double LINE_W = 1;
+    double LINE_W = 2;
     double TICK_SPACING_X = 1;
     double TICK_SPACING_Y = 1;
 
@@ -56,8 +56,10 @@ SDL_Color makeColor(const Uint8 &r, const Uint8 &g, const Uint8 &b, const Uint8 
 
 //////////////////////////////
 
-void drawLine(SDL_Renderer *rend, double x1, double y1, double x2, double y2)
+void Graph::drawLine(SDL_Renderer *rend, double x1, double y1, double x2, double y2)
 {
+    SDL_RenderDrawLineF(rend, x1, y1, x2, y2);
+
     if (x1 == x2)
     {
         SDL_FRect temp;
@@ -66,6 +68,18 @@ void drawLine(SDL_Renderer *rend, double x1, double y1, double x2, double y2)
         temp.y = y1;
         temp.w = LINE_W;
         temp.h = (y2 - y1);
+
+        SDL_RenderDrawRectF(rend, &temp);
+        return;
+    }
+    else if (y1 == y2)
+    {
+        SDL_FRect temp;
+
+        temp.x = x1;
+        temp.y = y1;
+        temp.w = (x2 - x1);
+        temp.h = LINE_W;
 
         SDL_RenderDrawRectF(rend, &temp);
         return;
@@ -85,15 +99,17 @@ void drawLine(SDL_Renderer *rend, double x1, double y1, double x2, double y2)
 
         SDL_FRect temp;
         double dydx = (y2 - y1) / (x2 - x1);
-        double curY = y1;
         for (double x = x1; x < x2; x += LINE_W)
         {
             temp.x = x;
             temp.w = LINE_W;
-            temp.y = curY;
-            temp.h = dydx;
+            temp.y = y1 + (dydx * (x - x1));
+            temp.h = y1 + (dydx * (LINE_W + x - x1)) - temp.y;
 
-            curY += dydx;
+            if (temp.h > 0 && LINE_W > temp.h)
+                temp.h = LINE_W;
+            else if (temp.h < 0 && -LINE_W < temp.h)
+                temp.h = -LINE_W;
 
             SDL_RenderDrawRectF(rend, &temp);
         }

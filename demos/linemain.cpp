@@ -3,65 +3,86 @@
 #include <iostream>
 #include <cmath>
 #include <set>
+#include <map>
 
-double t = 0;
+vector<double> xList;
+vector<double> yList;
+
+int pos = 0;
 bool a(double &x, double &y)
 {
-    t += .1;
+    x = xList[pos];
+    y = yList[pos];
+    pos++;
 
-    x = 10 * sin(t);
-    y = 10 * cos(t);
-
-    if (t < 7)
-        return true;
+    if (pos > xList.size())
+    {
+        pos = 0;
+        return false;
+    }
     else
     {
-        t = 0;
-        return false;
+        return true;
     }
 }
 
 int main()
 {
+    xList.push_back(-8);
+    yList.push_back(8);
+
+    xList.push_back(9);
+    yList.push_back(-1);
+
+    xList.push_back(0);
+    yList.push_back(4);
+
+    xList.push_back(-2);
+    yList.push_back(9);
+
+    xList.push_back(-2);
+    yList.push_back(-9);
+
     set<SDL_Keycode> keys;
+
+    jgraph::UPSCALING_X = jgraph::UPSCALING_Y = 4;
 
     LineGraph g;
     cout << g << '\n';
 
     g.equations.push_back(a);
-
     g.colors.push_back(makeColor(255, 0, 0, 255));
 
     SDL_Event event;
     bool isRunning = true;
+
     while (isRunning)
     {
         g.refresh();
 
-        while (SDL_PollEvent(&event))
-        {
-            switch (event.type)
-            {
-            case SDL_KEYDOWN:
-                if (event.key.keysym.sym == 27)
-                    isRunning = false;
-                if (event.key.keysym.sym == 's')
-                {
-                    g.screenShot("line.bmp");
-                    cout << "Screenshot taken.\n";
-                }
-                if (event.key.keysym.sym == 'c')
-                {
-                    g.csv("line.csv");
-                    cout << "CSV saved.\n";
-                }
+        SDL_WaitEvent(&event);
 
-                keys.insert(event.key.keysym.sym);
-                break;
-            default:
-                keys.erase(event.key.keysym.sym);
-                break;
+        switch (event.type)
+        {
+        case SDL_KEYDOWN:
+            if (event.key.keysym.sym == 27)
+                isRunning = false;
+            if (event.key.keysym.sym == 's')
+            {
+                g.screenShot("line.bmp");
+                cout << "Screenshot taken.\n";
             }
+            if (event.key.keysym.sym == 'c')
+            {
+                g.csv("line.csv");
+                cout << "CSV saved.\n";
+            }
+
+            keys.insert(event.key.keysym.sym);
+            break;
+        case SDL_KEYUP:
+            keys.erase(event.key.keysym.sym);
+            break;
         }
     }
 

@@ -25,6 +25,8 @@ int main()
 {
     set<SDL_Keycode> keys;
 
+    jgraph::UPSCALING_X = jgraph::UPSCALING_Y = 4;
+
     BarGraph g;
     cout << g << '\n';
 
@@ -36,36 +38,31 @@ int main()
 
     while (isRunning)
     {
-        g.refresh(false);
+        g.refresh();
 
-        g.writer->write(jgraph::TITLE, 0, 0, makeColor(0, 0, 0, 255));
+        SDL_WaitEvent(&event);
 
-        SDL_RenderPresent(g.rend);
-
-        while (SDL_PollEvent(&event))
+        switch (event.type)
         {
-            switch (event.type)
+        case SDL_KEYDOWN:
+            if (event.key.keysym.sym == 27)
+                isRunning = false;
+            if (event.key.keysym.sym == 's')
             {
-            case SDL_KEYDOWN:
-                if (event.key.keysym.sym == 27)
-                    isRunning = false;
-                if (event.key.keysym.sym == 's')
-                {
-                    g.screenShot("bar.bmp");
-                    cout << "Screenshot taken.\n";
-                }
-                if (event.key.keysym.sym == 'c')
-                {
-                    g.csv("bar.csv");
-                    cout << "CSV saved.\n";
-                }
-
-                keys.insert(event.key.keysym.sym);
-                break;
-            default:
-                keys.erase(event.key.keysym.sym);
-                break;
+                g.screenShot("line.bmp");
+                cout << "Screenshot taken.\n";
             }
+            if (event.key.keysym.sym == 'c')
+            {
+                g.csv("line.csv");
+                cout << "CSV saved.\n";
+            }
+
+            keys.insert(event.key.keysym.sym);
+            break;
+        case SDL_KEYUP:
+            keys.erase(event.key.keysym.sym);
+            break;
         }
     }
 

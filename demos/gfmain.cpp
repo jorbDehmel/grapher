@@ -13,11 +13,8 @@ int main()
     jgraph::UPSCALING_X = jgraph::UPSCALING_Y = 4;
     jgraph::TICK_SPACING_X = jgraph::TICK_SPACING_Y = 1;
 
-    SlopeField g;
+    GradientField g;
     cout << g << '\n';
-
-    g.equations.push_back(dy);
-    g.colors.push_back(makeColor(255, 0, 0, 255));
 
     mainLoop(&g);
 

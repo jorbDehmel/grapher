@@ -2,31 +2,47 @@
 
 //////////////////////////////
 
+void SlopeField::graphAt(const double &x, const double &y, const int &i)
+{
+    double realX, realY, realX2, realY2;
+    double dy = (equations[i])(x, y);
+
+    double m = sqrt(1 + pow(dy, 2));
+    convertPoint(x, y, realX, realY);
+
+    if ((dy * .5 / m) > 2)
+        convertPoint(x / (dy * .5 / m), y + 1, realX2, realY2);
+    else
+        convertPoint(x + (.5 / m), y + (dy * .5 / m), realX2, realY2);
+
+    drawLine(rend, realX, realY, realX2, realY2);
+
+    return;
+}
+
 void SlopeField::refresh(bool present)
 {
     this->Graph::refresh();
-
-    double realX, realY;
-    double realX2, realY2;
-
-    double dy;
 
     for (int i = 0; i < equations.size(); i++)
     {
         SDL_Color color = colors[i % (colors.size() + 1)];
         SDL_SetRenderDrawColor(rend, color.r, color.g, color.b, color.a);
 
-        for (double x = xMin; x < xMax; x++)
+        for (double x = 0; x > xMin; x -= jgraph::TICK_SPACING_X)
         {
-            for (double y = yMin; y < yMax; y++)
-            {
-                dy = (equations[i])(x, y);
+            for (double y = 0; y > yMin; y -= jgraph::TICK_SPACING_Y)
+                graphAt(x, y, i);
+            for (double y = 0; y < yMax; y += jgraph::TICK_SPACING_Y)
+                graphAt(x, y, i);
+        }
 
-                convertPoint(x, y, realX, realY);
-                convertPoint(x + .5, y + (dy * .5), realX2, realY2);
-
-                drawLine(rend, realX, realY, realX2, realY2);
-            }
+        for (double x = 0; x < xMax; x += jgraph::TICK_SPACING_X)
+        {
+            for (double y = 0; y > yMin; y -= jgraph::TICK_SPACING_Y)
+                graphAt(x, y, i);
+            for (double y = 0; y < yMax; y += jgraph::TICK_SPACING_Y)
+                graphAt(x, y, i);
         }
     }
 

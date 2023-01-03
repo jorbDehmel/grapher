@@ -8,5 +8,6 @@
 #include "slopefield.hpp"
 #include "text.hpp"
 #include "drivers.hpp"
+#include "gradientfield.hpp"
 
 #endif

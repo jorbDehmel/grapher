@@ -20,6 +20,9 @@ public:
 
     // List of equations to graph
     vector<double (*)(const double x, const double y)> equations;
+
+protected:
+    void graphAt(const double &x, const double &y, const int &i);
 };
 
 //////////////////////////////

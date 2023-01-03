@@ -3,6 +3,7 @@
 
 #include "graph.hpp"
 #include "slopefield.hpp"
+#include "gradientfield.hpp"
 
 // Repeatedly update and handle key events
 void mainLoop(BarGraph *g);
@@ -16,5 +17,8 @@ void mainLoop(LineGraph *g, void (*update)(LineGraph *graph, set<int> &pressedKe
 
 void mainLoop(SlopeField *g);
 void mainLoop(SlopeField *g, void (*update)(SlopeField *graph, set<int> &pressedKeys));
+
+void mainLoop(GradientField *g);
+void mainLoop(GradientField *g, void (*update)(GradientField *graph, set<int> &pressedKeys));
 
 #endif

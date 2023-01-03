@@ -9,6 +9,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <set>
 using namespace std;
 
 //////////////////////////////
@@ -92,7 +93,7 @@ public:
     vector<SDL_Color> colors;
 
     // Save a screenshot of the graph
-    void screenShot(const char *where) const;
+    void screenshot(const char *where) const;
 
     // Underlying SDL2 window
     SDL_Window *wind;

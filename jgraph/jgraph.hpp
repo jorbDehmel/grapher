@@ -7,5 +7,6 @@
 #include "graph.hpp"
 #include "slopefield.hpp"
 #include "text.hpp"
+#include "drivers.hpp"
 
 #endif

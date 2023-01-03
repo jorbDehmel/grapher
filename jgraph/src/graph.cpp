@@ -214,7 +214,7 @@ void Graph::refresh()
     return;
 }
 
-void Graph::screenShot(const char *where) const
+void Graph::screenshot(const char *where) const
 {
     SDL_Surface *sshot = SDL_CreateRGBSurface(0, WIDTH * UPSCALING_X, HEIGHT * UPSCALING_Y, 32, 0, 0, 0, 0);
     SDL_RenderReadPixels(rend, NULL, 0, sshot->pixels, sshot->pitch);

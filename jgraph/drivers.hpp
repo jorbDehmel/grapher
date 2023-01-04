@@ -1,9 +1,9 @@
 #ifndef DRIVERS_H
 #define DRIVERS_H
 
-#include "graph.hpp"
-#include "slopefield.hpp"
+#include "jgraph.hpp"
 #include "gradientfield.hpp"
+#include <set>
 
 // Repeatedly update and handle key events
 void mainLoop(BarGraph *g);

@@ -1,14 +1,19 @@
 #ifndef GRAD_FIELD_H
 #define GRAD_FIELD_H
 
-#include "jgraph.hpp"
+#include "graph.hpp"
+#include <cmath>
 
 SDL_Color __defaultGradFieldFill(const double &out);
 
 class GradientField : public Graph
 {
 public:
-    GradientField(SDL_Color (*ColorEq)(const double &out) = __defaultGradFieldFill) : colorEq(ColorEq), Graph(){};
+    GradientField(double (*Equation)(const double x, const double y), SDL_Color (*ColorEq)(const double &out) = __defaultGradFieldFill) : Graph()
+    {
+        equation = Equation;
+        colorEq = ColorEq;
+    }
 
     // Update the graph window
     void refresh(bool present = true);

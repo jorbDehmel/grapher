@@ -53,6 +53,12 @@ namespace jgraph
     // Whether or not to draw labels
     extern bool DRAW_LABELS;
 
+    // Offsets for labels
+    extern int XMIN_OFFSET;
+    extern int XMAX_OFFSET;
+    extern int YMIN_OFFSET;
+    extern int YMAX_OFFSET;
+
     // Color to draw ticks in
     extern SDL_Color TICK_COLOR;
 
@@ -64,6 +70,9 @@ namespace jgraph
 }
 
 //////////////////////////////
+
+// Format a double for display in labels
+string formatDouble(const double what);
 
 // Create an SDL2 color from a given rgba
 SDL_Color makeColor(const Uint8 &r, const Uint8 &g, const Uint8 &b, const Uint8 &a);

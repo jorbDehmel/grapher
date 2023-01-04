@@ -44,4 +44,8 @@ build/drivers.o:	src/drivers.cpp drivers.hpp
 pclean:
 	rm bin/* build/*
 
+uninstall:
+	rm bin/* build/*
+	sudo rm -rf /usr/include/jgraph
+
 #####################################

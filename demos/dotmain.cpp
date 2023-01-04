@@ -21,8 +21,10 @@ bool s(double &x, double &y)
 
 int main()
 {
+    jgraph::FONT_PATH = "/usr/include/jgraph/fonts/Open_Sans/static/OpenSans/OpenSans-Bold.ttf";
     jgraph::WIDTH = jgraph::HEIGHT = 512;
     jgraph::UPSCALING_X = jgraph::UPSCALING_Y = 2;
+    jgraph::FONT_POINTS = 24 / jgraph::UPSCALING_X;
     jgraph::TITLE = "DotMain";
 
     DotGraph g;
@@ -30,9 +32,6 @@ int main()
 
     g.equations.push_back(s);
     g.equations.push_back(c);
-
-    g.colors.push_back(makeColor(255, 0, 0, 255));
-    g.colors.push_back(makeColor(0, 0, 255, 255));
 
     mainLoop(&g);
 

@@ -13,14 +13,16 @@ bool a(double &x, double &y)
 
 int main()
 {
-    jgraph::UPSCALING_X = jgraph::UPSCALING_Y = 4;
+    jgraph::FONT_PATH = "/usr/include/jgraph/fonts/Open_Sans/static/OpenSans/OpenSans-Bold.ttf";
+    jgraph::WIDTH = jgraph::HEIGHT = 512;
+    jgraph::UPSCALING_X = jgraph::UPSCALING_Y = 2;
+    jgraph::FONT_POINTS = 24 / jgraph::UPSCALING_X;
     jgraph::TITLE = "BarGraph";
 
     BarGraph g;
     cout << g << '\n';
 
     g.equations.push_back(a);
-    g.colors.push_back(makeColor(255, 0, 0, 255));
 
     mainLoop(&g);
 

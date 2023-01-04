@@ -40,14 +40,16 @@ int main()
     xList.push_back(-2);
     yList.push_back(-9);
 
-    jgraph::UPSCALING_X = jgraph::UPSCALING_Y = 4;
+    jgraph::FONT_PATH = "/usr/include/jgraph/fonts/Open_Sans/static/OpenSans/OpenSans-Bold.ttf";
+    jgraph::WIDTH = jgraph::HEIGHT = 1028;
+    jgraph::UPSCALING_X = jgraph::UPSCALING_Y = 1;
+    jgraph::FONT_POINTS = 24 / jgraph::UPSCALING_X;
     jgraph::TITLE = "LineGraph";
 
     LineGraph g;
     cout << g << '\n';
 
     g.equations.push_back(a);
-    g.colors.push_back(makeColor(255, 0, 0, 255));
 
     mainLoop(&g);
 

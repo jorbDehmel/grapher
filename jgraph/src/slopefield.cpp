@@ -1,4 +1,5 @@
 #include "../slopefield.hpp"
+using namespace jgraph;
 
 //////////////////////////////
 
@@ -26,7 +27,7 @@ void SlopeField::refresh(bool present)
 
     for (int i = 0; i < equations.size(); i++)
     {
-        SDL_Color color = colors[i % (colors.size() + 1)];
+        SDL_Color color = COLORS[i % (COLORS.size() + 1)];
         SDL_SetRenderDrawColor(rend, color.r, color.g, color.b, color.a);
 
         for (double x = 0; x > xMin; x -= jgraph::TICK_SPACING_X)

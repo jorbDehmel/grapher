@@ -30,6 +30,14 @@ namespace jgraph
     SDL_Color TICK_COLOR = makeColor(192, 192, 192, 255);
     SDL_Color AXIS_COLOR = makeColor(0, 0, 0, 255);
     SDL_Color LABEL_COLOR = makeColor(0, 0, 0, 255);
+    SDL_Color BACKGROUND_COLOR = makeColor(255, 255, 255, 255);
+
+    vector<SDL_Color> COLORS = {
+        makeColor(255, 0, 0, 255),
+        makeColor(0, 0, 255, 255),
+        makeColor(0, 255, 0, 255),
+        makeColor(0, 0, 0, 255),
+        makeColor(255, 255, 0, 255)};
 }
 
 using namespace jgraph;
@@ -125,8 +133,6 @@ void Graph::drawLine(SDL_Renderer *rend, double x1, double y1, double x2, double
 
 Graph::Graph()
 {
-    bgc.r = bgc.g = bgc.b = bgc.a = 255;
-
     xMin = yMin = -10;
     xMax = yMax = 10;
 
@@ -170,7 +176,7 @@ void Graph::convertPoint(const double &xIn, const double &yIn, double &xOut, dou
 
 void Graph::refresh()
 {
-    SDL_SetRenderDrawColor(rend, bgc.r, bgc.g, bgc.b, bgc.a);
+    SDL_SetRenderDrawColor(rend, BACKGROUND_COLOR.r, BACKGROUND_COLOR.g, BACKGROUND_COLOR.b, BACKGROUND_COLOR.a);
     SDL_RenderClear(rend);
 
     // Draw ticks
@@ -256,7 +262,7 @@ void DotGraph::refresh(bool present)
     SDL_FRect rect;
     for (int i = 0; i < equations.size(); i++)
     {
-        SDL_Color color = colors[i % (colors.size() + 1)];
+        SDL_Color color = COLORS[i % (COLORS.size() + 1)];
         SDL_SetRenderDrawColor(rend, color.r, color.g, color.b, color.a);
 
         steps = 0;
@@ -297,11 +303,6 @@ void DotGraph::csv(const char *where) const
     {
         x = xMin;
         y = yMin;
-
-        /*
-        i am lord heljehe dejahn
-        Frog tans are in ryt
-        */
 
         string xLine, yLine;
         xLine += "x" + to_string(i) + ", ";
@@ -366,7 +367,7 @@ void LineGraph::refresh(bool present)
     // Graph data
     for (int i = 0; i < points.size(); i++)
     {
-        SDL_Color color = colors[i % (colors.size() + 1)];
+        SDL_Color color = COLORS[i % (COLORS.size() + 1)];
         SDL_SetRenderDrawColor(rend, color.r, color.g, color.b, color.a);
 
         for (int j = 0; j + 1 < points[i].size(); j++)
@@ -396,11 +397,6 @@ void LineGraph::csv(const char *where) const
     {
         x = xMin;
         y = yMin;
-
-        /*
-        i am lord heljehe dejahn
-        Frog tans are in ryt
-        */
 
         string xLine, yLine;
         xLine += "x" + to_string(i) + ", ";
@@ -465,7 +461,7 @@ void BarGraph::refresh(bool present)
     // Graph data
     for (int i = 0; i < points.size(); i++)
     {
-        SDL_Color color = colors[i % (colors.size() + 1)];
+        SDL_Color color = COLORS[i % (COLORS.size() + 1)];
         SDL_SetRenderDrawColor(rend, color.r, color.g, color.b, color.a);
 
         for (int j = 0; j + 1 < points[i].size(); j++)
@@ -503,11 +499,6 @@ void BarGraph::csv(const char *where) const
     {
         x = xMin;
         y = yMin;
-
-        /*
-        i am lord heljehe dejahn
-        Frog tans are in ryt
-        */
 
         string xLine, yLine;
         xLine += "x" + to_string(i) + ", ";

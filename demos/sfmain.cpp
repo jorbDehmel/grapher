@@ -7,10 +7,17 @@ double dy(const double x, const double y)
     return x * y;
 }
 
+double dy2(const double x, const double y)
+{
+    return x + y;
+}
+
 int main()
 {
+    jgraph::FONT_PATH = "/usr/include/jgraph/fonts/Open_Sans/static/OpenSans/OpenSans-Bold.ttf";
+    jgraph::FONT_POINTS = 20;
     jgraph::WIDTH = jgraph::HEIGHT = 512;
-    jgraph::UPSCALING_X = jgraph::UPSCALING_Y = 4;
+    jgraph::UPSCALING_X = jgraph::UPSCALING_Y = 2;
     jgraph::TICK_SPACING_X = jgraph::TICK_SPACING_Y = 1;
     jgraph::TITLE = "SlopeFieldGraph";
 
@@ -18,7 +25,7 @@ int main()
     cout << g << '\n';
 
     g.equations.push_back(dy);
-    g.colors.push_back(makeColor(255, 0, 0, 255));
+    g.equations.push_back(dy2);
 
     mainLoop(&g);
 

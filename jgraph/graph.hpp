@@ -67,6 +67,12 @@ namespace jgraph
 
     // Color to draw labels in
     extern SDL_Color LABEL_COLOR;
+
+    // Background color for graphs
+    extern SDL_Color BACKGROUND_COLOR;
+
+    // List of colors to render in
+    extern vector<SDL_Color> COLORS;
 }
 
 //////////////////////////////
@@ -92,17 +98,14 @@ public:
     // Update the graph window
     void refresh();
 
-    // Background color
-    SDL_Color bgc;
+    // Save a screenshot of the graph
+    void screenshot(const char *where) const;
+
+    // Save graph data to a csv file
+    void csv(const char *where) const {}
 
     // Graphing mins and maxs
     double xMin, xMax, yMin, yMax;
-
-    // The colors to graph (if there are multiple lines)
-    vector<SDL_Color> colors;
-
-    // Save a screenshot of the graph
-    void screenshot(const char *where) const;
 
     // Underlying SDL2 window
     SDL_Window *wind;

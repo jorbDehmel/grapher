@@ -12,6 +12,7 @@ int main()
     jgraph::WIDTH = jgraph::HEIGHT = 512;
     jgraph::UPSCALING_X = jgraph::UPSCALING_Y = 4;
     jgraph::TICK_SPACING_X = jgraph::TICK_SPACING_Y = 1;
+    jgraph::TITLE = "SlopeFieldGraph";
 
     SlopeField g;
     cout << g << '\n';

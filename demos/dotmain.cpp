@@ -23,6 +23,7 @@ int main()
 {
     jgraph::WIDTH = jgraph::HEIGHT = 512;
     jgraph::UPSCALING_X = jgraph::UPSCALING_Y = 2;
+    jgraph::TITLE = "DotMain";
 
     DotGraph g;
     cout << g << '\n';

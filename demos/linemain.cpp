@@ -41,6 +41,7 @@ int main()
     yList.push_back(-9);
 
     jgraph::UPSCALING_X = jgraph::UPSCALING_Y = 4;
+    jgraph::TITLE = "LineGraph";
 
     LineGraph g;
     cout << g << '\n';

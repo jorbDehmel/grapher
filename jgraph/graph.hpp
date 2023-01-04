@@ -8,7 +8,7 @@
 #include <stdexcept>
 #include <iostream>
 #include <fstream>
-#include <sstream>
+#include <string>
 #include <set>
 using namespace std;
 
@@ -24,7 +24,7 @@ namespace jgraph
     extern double UPSCALING_X, UPSCALING_Y;
 
     // The title of the graph's window
-    extern char TITLE[64];
+    extern string TITLE;
 
     // For internal use
     extern bool SDL_IS_INITIALIZED;

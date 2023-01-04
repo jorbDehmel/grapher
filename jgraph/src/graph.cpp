@@ -6,7 +6,7 @@ namespace jgraph
 {
     unsigned int HEIGHT = 256, WIDTH = 256;
     double UPSCALING_X = 1, UPSCALING_Y = 1;
-    char TITLE[64] = "Jorb Grapher 0.01";
+    string TITLE = "Jorb Grapher 0.01";
 
     bool SDL_IS_INITIALIZED = false;
     double LINE_W = 2;
@@ -136,7 +136,7 @@ Graph::Graph()
         SDL_IS_INITIALIZED = true;
     }
 
-    wind = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_OPENGL);
+    wind = SDL_CreateWindow(TITLE.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_OPENGL);
     rend = SDL_CreateRenderer(wind, 0, 1);
     SDL_SetWindowSize(wind, WIDTH * UPSCALING_X, HEIGHT * UPSCALING_Y);
     SDL_RenderSetScale(rend, UPSCALING_X, UPSCALING_Y);

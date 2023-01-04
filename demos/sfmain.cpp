@@ -17,7 +17,7 @@ int main()
     jgraph::FONT_PATH = "/usr/include/jgraph/fonts/Open_Sans/static/OpenSans/OpenSans-Bold.ttf";
     jgraph::FONT_POINTS = 20;
     jgraph::WIDTH = jgraph::HEIGHT = 512;
-    jgraph::UPSCALING_X = jgraph::UPSCALING_Y = 2;
+    jgraph::UPSCALING_X = jgraph::UPSCALING_Y = 1;
     jgraph::TICK_SPACING_X = jgraph::TICK_SPACING_Y = 1;
     jgraph::TITLE = "SlopeFieldGraph";
 

@@ -112,6 +112,20 @@ for this type of equation.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+GradientFields:
+
+    Gradient fields function like slope fields, but
+instead of a vector representing the value at a given
+point (x, y), this value is represented by the color at
+the point.
+
+    This graph cannot only plot 1 equation, and takes an
+additional function which determines the color given the
+output value. The default function maps high values to
+light colors and low values to dark colors.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 Included font credit of
 https://www.fontspace.com/geelynedits
 via

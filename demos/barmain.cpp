@@ -15,7 +15,7 @@ int main()
 {
     jgraph::FONT_PATH = "/usr/include/jgraph/fonts/Open_Sans/static/OpenSans/OpenSans-Bold.ttf";
     jgraph::WIDTH = jgraph::HEIGHT = 512;
-    jgraph::UPSCALING_X = jgraph::UPSCALING_Y = 2;
+    jgraph::UPSCALING_X = jgraph::UPSCALING_Y = 1;
     jgraph::FONT_POINTS = 24 / jgraph::UPSCALING_X;
     jgraph::TITLE = "BarGraph";
 

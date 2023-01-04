@@ -4,7 +4,7 @@ STEM = clang++ -pedantic -Wall `sdl2-config --cflags --libs` -lSDL2_ttf
 
 #####################################
 
-demos: bin/sfmain.out bin/gfmain.out bin/barmain.out bin/dotmain.out bin/linemain.out bin/csvmain.out
+demos: bin/sfmain.out bin/gfmain.out bin/barmain.out bin/dotmain.out bin/linemain.out
 
 #####################################
 
@@ -55,3 +55,4 @@ clean:
 
 pclean:
 	rm build/* bin/*
+

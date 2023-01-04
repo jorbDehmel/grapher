@@ -73,6 +73,9 @@ namespace jgraph
 
     // List of colors to render in
     extern vector<SDL_Color> COLORS;
+
+    // Graphing mins and maxs
+    extern double XMIN, XMAX, YMIN, YMAX;
 }
 
 //////////////////////////////
@@ -103,9 +106,6 @@ public:
 
     // Save graph data to a csv file
     void csv(const char *where) const {}
-
-    // Graphing mins and maxs
-    double xMin, xMax, yMin, yMax;
 
     // Underlying SDL2 window
     SDL_Window *wind;

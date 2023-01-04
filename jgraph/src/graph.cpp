@@ -38,6 +38,11 @@ namespace jgraph
         makeColor(0, 255, 0, 255),
         makeColor(0, 0, 0, 255),
         makeColor(255, 255, 0, 255)};
+
+    double YMIN = -10;
+    double YMAX = 10;
+    double XMIN = -10;
+    double XMAX = 10;
 }
 
 using namespace jgraph;
@@ -133,9 +138,6 @@ void Graph::drawLine(SDL_Renderer *rend, double x1, double y1, double x2, double
 
 Graph::Graph()
 {
-    xMin = yMin = -10;
-    xMax = yMax = 10;
-
     if (!SDL_IS_INITIALIZED)
     {
         SDL_Init(SDL_INIT_EVERYTHING);
@@ -168,8 +170,8 @@ Graph::~Graph()
 
 void Graph::convertPoint(const double &xIn, const double &yIn, double &xOut, double &yOut)
 {
-    xOut = ((xIn - xMin) / (xMax - xMin)) * WIDTH;
-    yOut = ((yIn - yMax) / (yMin - yMax)) * HEIGHT;
+    xOut = ((xIn - XMIN) / (XMAX - XMIN)) * WIDTH;
+    yOut = ((yIn - YMAX) / (YMIN - YMAX)) * HEIGHT;
 
     return;
 }
@@ -183,22 +185,22 @@ void Graph::refresh()
     if (DRAW_TICKS)
     {
         SDL_SetRenderDrawColor(rend, TICK_COLOR.r, TICK_COLOR.g, TICK_COLOR.b, TICK_COLOR.a);
-        for (int x = 0; x < xMax; x += TICK_SPACING_X)
+        for (int x = 0; x < XMAX; x += TICK_SPACING_X)
         {
-            drawLine(rend, ((x - xMin) / (xMax - xMin)) * WIDTH, 0, ((x - xMin) / (xMax - xMin)) * WIDTH, HEIGHT);
+            drawLine(rend, ((x - XMIN) / (XMAX - XMIN)) * WIDTH, 0, ((x - XMIN) / (XMAX - XMIN)) * WIDTH, HEIGHT);
         }
-        for (int x = 0; x > xMin; x -= TICK_SPACING_X)
+        for (int x = 0; x > XMIN; x -= TICK_SPACING_X)
         {
-            drawLine(rend, ((x - xMin) / (xMax - xMin)) * WIDTH, 0, ((x - xMin) / (xMax - xMin)) * WIDTH, HEIGHT);
+            drawLine(rend, ((x - XMIN) / (XMAX - XMIN)) * WIDTH, 0, ((x - XMIN) / (XMAX - XMIN)) * WIDTH, HEIGHT);
         }
 
-        for (int y = 0; y < yMax; y += TICK_SPACING_Y)
+        for (int y = 0; y < YMAX; y += TICK_SPACING_Y)
         {
-            drawLine(rend, 0, ((y - yMax) / (yMin - yMax)) * HEIGHT, WIDTH, ((y - yMax) / (yMin - yMax)) * HEIGHT);
+            drawLine(rend, 0, ((y - YMAX) / (YMIN - YMAX)) * HEIGHT, WIDTH, ((y - YMAX) / (YMIN - YMAX)) * HEIGHT);
         }
-        for (int y = 0; y > yMin; y -= TICK_SPACING_Y)
+        for (int y = 0; y > YMIN; y -= TICK_SPACING_Y)
         {
-            drawLine(rend, 0, ((y - yMax) / (yMin - yMax)) * HEIGHT, WIDTH, ((y - yMax) / (yMin - yMax)) * HEIGHT);
+            drawLine(rend, 0, ((y - YMAX) / (YMIN - YMAX)) * HEIGHT, WIDTH, ((y - YMAX) / (YMIN - YMAX)) * HEIGHT);
         }
     }
 
@@ -206,20 +208,20 @@ void Graph::refresh()
     if (DRAW_AXIIS)
     {
         SDL_SetRenderDrawColor(rend, AXIS_COLOR.r, AXIS_COLOR.g, AXIS_COLOR.b, AXIS_COLOR.a);
-        drawLine(rend, (-xMin / (xMax - xMin)) * WIDTH, 0, (-xMin / (xMax - xMin)) * WIDTH, HEIGHT);
-        drawLine(rend, 0, (-yMax / (yMin - yMax)) * HEIGHT, WIDTH, (-yMax / (yMin - yMax)) * HEIGHT);
+        drawLine(rend, (-XMIN / (XMAX - XMIN)) * WIDTH, 0, (-XMIN / (XMAX - XMIN)) * WIDTH, HEIGHT);
+        drawLine(rend, 0, (-YMAX / (YMIN - YMAX)) * HEIGHT, WIDTH, (-YMAX / (YMIN - YMAX)) * HEIGHT);
     }
 
     if (DRAW_LABELS)
     {
         // Write labels
-        writer->write(formatDouble(xMin), XMIN_OFFSET, (-yMax / (yMin - yMax)) * HEIGHT, LABEL_COLOR);
-        writer->write(formatDouble(xMax), WIDTH - XMAX_OFFSET, (-yMax / (yMin - yMax)) * HEIGHT, LABEL_COLOR);
+        writer->write(formatDouble(XMIN), XMIN_OFFSET, (-YMAX / (YMIN - YMAX)) * HEIGHT, LABEL_COLOR);
+        writer->write(formatDouble(XMAX), WIDTH - XMAX_OFFSET, (-YMAX / (YMIN - YMAX)) * HEIGHT, LABEL_COLOR);
 
-        writer->write(formatDouble(yMin), (-xMin / (xMax - xMin)) * WIDTH, HEIGHT - YMIN_OFFSET, LABEL_COLOR);
-        writer->write(formatDouble(yMax), (-xMin / (xMax - xMin)) * WIDTH, YMAX_OFFSET, LABEL_COLOR);
+        writer->write(formatDouble(YMIN), (-XMIN / (XMAX - XMIN)) * WIDTH, HEIGHT - YMIN_OFFSET, LABEL_COLOR);
+        writer->write(formatDouble(YMAX), (-XMIN / (XMAX - XMIN)) * WIDTH, YMAX_OFFSET, LABEL_COLOR);
 
-        writer->write("0", (-xMin / (xMax - xMin)) * WIDTH - FONT_POINTS, (-yMax / (yMin - yMax)) * HEIGHT, LABEL_COLOR);
+        writer->write("0", (-XMIN / (XMAX - XMIN)) * WIDTH - FONT_POINTS, (-YMAX / (YMIN - YMAX)) * HEIGHT, LABEL_COLOR);
     }
 
     return;
@@ -242,7 +244,7 @@ ostream &operator<<(ostream &stream, Graph &g)
            << "\tDisplay dimensions: w = " << WIDTH * UPSCALING_X << ", h = " << HEIGHT * UPSCALING_Y << '\n'
            << "\tLine width: " << LINE_W << '\n'
            << "\tx scale: " << TICK_SPACING_X << ", y scale: " << TICK_SPACING_Y << '\n'
-           << "\tx range: (" << g.xMin << ", " << g.xMax << "), x range: (" << g.yMin << ", " << g.yMax << ")";
+           << "\tx range: (" << XMIN << ", " << XMAX << "), x range: (" << YMIN << ", " << YMAX << ")";
 
     return stream;
 }
@@ -266,10 +268,10 @@ void DotGraph::refresh(bool present)
         SDL_SetRenderDrawColor(rend, color.r, color.g, color.b, color.a);
 
         steps = 0;
-        x = xMin;
-        y = yMin;
+        x = XMIN;
+        y = YMIN;
 
-        while ((equations[i])(x, y) && x < xMax)
+        while ((equations[i])(x, y) && x < XMAX)
         {
             convertPoint(x, y, realX, realY);
 
@@ -301,14 +303,14 @@ void DotGraph::csv(const char *where) const
 
     for (int i = 0; i < equations.size(); i++)
     {
-        x = xMin;
-        y = yMin;
+        x = XMIN;
+        y = YMIN;
 
         string xLine, yLine;
         xLine += "x" + to_string(i) + ", ";
         yLine += "y" + to_string(i) + ", ";
 
-        while ((equations[i])(x, y) && x < xMax)
+        while ((equations[i])(x, y) && x < XMAX)
         {
             xLine += to_string(x) + ", ";
             yLine += to_string(y) + ", ";
@@ -342,10 +344,10 @@ void LineGraph::refresh(bool present)
         vector<SDL_Point> eqData;
 
         steps = 0;
-        x = xMin;
-        y = yMin;
+        x = XMIN;
+        y = YMIN;
 
-        while ((equations[i])(x, y) && x < xMax)
+        while ((equations[i])(x, y) && x < XMAX)
         {
             convertPoint(x, y, realX, realY);
 
@@ -395,14 +397,14 @@ void LineGraph::csv(const char *where) const
 
     for (int i = 0; i < equations.size(); i++)
     {
-        x = xMin;
-        y = yMin;
+        x = XMIN;
+        y = YMIN;
 
         string xLine, yLine;
         xLine += "x" + to_string(i) + ", ";
         yLine += "y" + to_string(i) + ", ";
 
-        while ((equations[i])(x, y) && x < xMax)
+        while ((equations[i])(x, y) && x < XMAX)
         {
             xLine += to_string(x) + ", ";
             yLine += to_string(y) + ", ";
@@ -436,10 +438,10 @@ void BarGraph::refresh(bool present)
         vector<SDL_Point> eqData;
 
         steps = 0;
-        x = xMin;
-        y = yMin;
+        x = XMIN;
+        y = YMIN;
 
-        while ((equations[i])(x, y) && x < xMax)
+        while ((equations[i])(x, y) && x < XMAX)
         {
             convertPoint(x, y, realX, realY);
 
@@ -471,10 +473,10 @@ void BarGraph::refresh(bool present)
             SDL_Rect r;
 
             r.x = a.x;
-            r.y = (-yMax / (yMin - yMax)) * HEIGHT;
+            r.y = (-YMAX / (YMIN - YMAX)) * HEIGHT;
 
             r.w = b.x - a.x;
-            r.h = a.y - (-yMax / (yMin - yMax)) * HEIGHT;
+            r.h = a.y - (-YMAX / (YMIN - YMAX)) * HEIGHT;
 
             SDL_RenderFillRect(rend, &r);
         }
@@ -497,14 +499,14 @@ void BarGraph::csv(const char *where) const
 
     for (int i = 0; i < equations.size(); i++)
     {
-        x = xMin;
-        y = yMin;
+        x = XMIN;
+        y = YMIN;
 
         string xLine, yLine;
         xLine += "x" + to_string(i) + ", ";
         yLine += "y" + to_string(i) + ", ";
 
-        while ((equations[i])(x, y) && x < xMax)
+        while ((equations[i])(x, y) && x < XMAX)
         {
             xLine += to_string(x) + ", ";
             yLine += to_string(y) + ", ";

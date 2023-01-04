@@ -18,39 +18,39 @@ SDL_Color __defaultGradFieldFill(const double &in)
 // Update the graph window
 void GradientField::refresh(bool present)
 {
-    for (double x = 0; x >= xMin; x -= TICK_SPACING_X)
+    for (double x = 0; x >= XMIN; x -= TICK_SPACING_X)
     {
-        for (double y = 0; y >= yMin; y -= TICK_SPACING_Y)
+        for (double y = 0; y >= YMIN; y -= TICK_SPACING_Y)
             graphAt(x, y);
-        for (double y = 0; y <= yMax; y += TICK_SPACING_Y)
+        for (double y = 0; y <= YMAX; y += TICK_SPACING_Y)
             graphAt(x, y);
     }
 
-    for (double x = 0; x <= xMax; x += TICK_SPACING_X)
+    for (double x = 0; x <= XMAX; x += TICK_SPACING_X)
     {
-        for (double y = 0; y >= yMin; y -= TICK_SPACING_Y)
+        for (double y = 0; y >= YMIN; y -= TICK_SPACING_Y)
             graphAt(x, y);
-        for (double y = 0; y <= yMax; y += TICK_SPACING_Y)
+        for (double y = 0; y <= YMAX; y += TICK_SPACING_Y)
             graphAt(x, y);
     }
 
     if (DRAW_AXIIS)
     {
         SDL_SetRenderDrawColor(rend, AXIS_COLOR.r, AXIS_COLOR.g, AXIS_COLOR.b, AXIS_COLOR.a);
-        drawLine(rend, (-xMin / (xMax - xMin)) * WIDTH, 0, (-xMin / (xMax - xMin)) * WIDTH, HEIGHT);
-        drawLine(rend, 0, (-yMax / (yMin - yMax)) * HEIGHT, WIDTH, (-yMax / (yMin - yMax)) * HEIGHT);
+        drawLine(rend, (-XMIN / (XMAX - XMIN)) * WIDTH, 0, (-XMIN / (XMAX - XMIN)) * WIDTH, HEIGHT);
+        drawLine(rend, 0, (-YMAX / (YMIN - YMAX)) * HEIGHT, WIDTH, (-YMAX / (YMIN - YMAX)) * HEIGHT);
     }
 
     if (DRAW_LABELS)
     {
         // Write labels
-        writer->write(formatDouble(xMin), XMIN_OFFSET, (-yMax / (yMin - yMax)) * HEIGHT, LABEL_COLOR);
-        writer->write(formatDouble(xMax), WIDTH - XMAX_OFFSET, (-yMax / (yMin - yMax)) * HEIGHT, LABEL_COLOR);
+        writer->write(formatDouble(XMIN), XMIN_OFFSET, (-YMAX / (YMIN - YMAX)) * HEIGHT, LABEL_COLOR);
+        writer->write(formatDouble(XMAX), WIDTH - XMAX_OFFSET, (-YMAX / (YMIN - YMAX)) * HEIGHT, LABEL_COLOR);
 
-        writer->write(formatDouble(yMin), (-xMin / (xMax - xMin)) * WIDTH, HEIGHT - YMIN_OFFSET, LABEL_COLOR);
-        writer->write(formatDouble(yMax), (-xMin / (xMax - xMin)) * WIDTH, YMAX_OFFSET, LABEL_COLOR);
+        writer->write(formatDouble(YMIN), (-XMIN / (XMAX - XMIN)) * WIDTH, HEIGHT - YMIN_OFFSET, LABEL_COLOR);
+        writer->write(formatDouble(YMAX), (-XMIN / (XMAX - XMIN)) * WIDTH, YMAX_OFFSET, LABEL_COLOR);
 
-        writer->write("0", (-xMin / (xMax - xMin)) * WIDTH - FONT_POINTS, (-yMax / (yMin - yMax)) * HEIGHT, LABEL_COLOR);
+        writer->write("0", (-XMIN / (XMAX - XMIN)) * WIDTH - FONT_POINTS, (-YMAX / (YMIN - YMAX)) * HEIGHT, LABEL_COLOR);
     }
 
     if (present)
@@ -92,9 +92,9 @@ void GradientField::csv(const char *where) const
     yLine += "y, ";
     dyLine += "out, ";
 
-    for (double x = xMin; x < xMax; x++)
+    for (double x = XMIN; x < XMAX; x++)
     {
-        for (double y = yMin; y < yMax; y++)
+        for (double y = YMIN; y < YMAX; y++)
         {
             xLine += to_string(x) + ", ";
             yLine += to_string(y) + ", ";

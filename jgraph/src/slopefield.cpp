@@ -30,19 +30,19 @@ void SlopeField::refresh(bool present)
         SDL_Color color = COLORS[i % (COLORS.size() + 1)];
         SDL_SetRenderDrawColor(rend, color.r, color.g, color.b, color.a);
 
-        for (double x = 0; x > xMin; x -= jgraph::TICK_SPACING_X)
+        for (double x = 0; x > XMIN; x -= jgraph::TICK_SPACING_X)
         {
-            for (double y = 0; y > yMin; y -= jgraph::TICK_SPACING_Y)
+            for (double y = 0; y > YMIN; y -= jgraph::TICK_SPACING_Y)
                 graphAt(x, y, i);
-            for (double y = 0; y < yMax; y += jgraph::TICK_SPACING_Y)
+            for (double y = 0; y < YMAX; y += jgraph::TICK_SPACING_Y)
                 graphAt(x, y, i);
         }
 
-        for (double x = 0; x < xMax; x += jgraph::TICK_SPACING_X)
+        for (double x = 0; x < XMAX; x += jgraph::TICK_SPACING_X)
         {
-            for (double y = 0; y > yMin; y -= jgraph::TICK_SPACING_Y)
+            for (double y = 0; y > YMIN; y -= jgraph::TICK_SPACING_Y)
                 graphAt(x, y, i);
-            for (double y = 0; y < yMax; y += jgraph::TICK_SPACING_Y)
+            for (double y = 0; y < YMAX; y += jgraph::TICK_SPACING_Y)
                 graphAt(x, y, i);
         }
     }
@@ -66,9 +66,9 @@ void SlopeField::csv(const char *where) const
         yLine += "y" + to_string(i) + ", ";
         dyLine += "dy" + to_string(i) + ", ";
 
-        for (double x = xMin; x < xMax; x++)
+        for (double x = XMIN; x < XMAX; x++)
         {
-            for (double y = yMin; y < yMax; y++)
+            for (double y = YMIN; y < YMAX; y++)
             {
                 xLine += to_string(x) + ", ";
                 yLine += to_string(y) + ", ";

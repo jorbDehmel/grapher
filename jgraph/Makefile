@@ -11,8 +11,8 @@ install:	bin/jgraph.a
 
 #####################################
 
-bin/jgraph.a:	bin/ build/ build/graph.o build/slopefield.o build/text.o build/drivers.o build/gradfield.o
-	ar rsv bin/jgraph.a build/graph.o build/slopefield.o build/text.o build/drivers.o build/gradfield.o
+bin/jgraph.a:	bin/ build/ build/graph.o build/slopefield.o build/text.o build/drivers.o build/gradfield.o build/csv.o
+	ar rsv bin/jgraph.a build/graph.o build/slopefield.o build/text.o build/drivers.o build/gradfield.o build/csv.o
 
 #####################################
 
@@ -38,6 +38,9 @@ build/text.o:	src/text.cpp text.hpp
 
 build/drivers.o:	src/drivers.cpp drivers.hpp
 	$(STEM) -c src/drivers.cpp -o build/drivers.o
+
+build/csv.o:	src/csv.cpp csv.hpp
+	$(STEM) -c src/csv.cpp -o build/csv.o
 
 #####################################
 

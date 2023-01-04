@@ -9,6 +9,7 @@
 #include "text.hpp"
 #include "drivers.hpp"
 #include "gradientfield.hpp"
+#include "csv.hpp"
 
 #endif
 

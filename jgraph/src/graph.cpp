@@ -22,10 +22,10 @@ namespace jgraph
     bool DRAW_TICKS = true;
     bool DRAW_LABELS = true;
 
-    int XMIN_OFFSET = 0;
-    int XMAX_OFFSET = 70;
-    int YMIN_OFFSET = 35;
-    int YMAX_OFFSET = 0;
+    SDL_Point XMIN_OFFSET = {0, 0};
+    SDL_Point XMAX_OFFSET = {70, 0};
+    SDL_Point YMIN_OFFSET = {0, 35};
+    SDL_Point YMAX_OFFSET = {0, 0};
 
     SDL_Color TICK_COLOR = makeColor(192, 192, 192, 255);
     SDL_Color AXIS_COLOR = makeColor(0, 0, 0, 255);
@@ -215,11 +215,11 @@ void Graph::refresh()
     if (DRAW_LABELS)
     {
         // Write labels
-        writer->write(formatDouble(XMIN), XMIN_OFFSET, (-YMAX / (YMIN - YMAX)) * HEIGHT, LABEL_COLOR);
-        writer->write(formatDouble(XMAX), WIDTH - XMAX_OFFSET, (-YMAX / (YMIN - YMAX)) * HEIGHT, LABEL_COLOR);
+        writer->write(formatDouble(XMIN), XMIN_OFFSET.x, (-YMAX / (YMIN - YMAX)) * HEIGHT + XMIN_OFFSET.y, LABEL_COLOR);
+        writer->write(formatDouble(XMAX), WIDTH - XMAX_OFFSET.x, (-YMAX / (YMIN - YMAX)) * HEIGHT + XMAX_OFFSET.y, LABEL_COLOR);
 
-        writer->write(formatDouble(YMIN), (-XMIN / (XMAX - XMIN)) * WIDTH, HEIGHT - YMIN_OFFSET, LABEL_COLOR);
-        writer->write(formatDouble(YMAX), (-XMIN / (XMAX - XMIN)) * WIDTH, YMAX_OFFSET, LABEL_COLOR);
+        writer->write(formatDouble(YMIN), (-XMIN / (XMAX - XMIN)) * WIDTH + YMIN_OFFSET.x, HEIGHT - YMIN_OFFSET.y, LABEL_COLOR);
+        writer->write(formatDouble(YMAX), (-XMIN / (XMAX - XMIN)) * WIDTH + YMAX_OFFSET.x, YMAX_OFFSET.y, LABEL_COLOR);
 
         writer->write("0", (-XMIN / (XMAX - XMIN)) * WIDTH - FONT_POINTS, (-YMAX / (YMIN - YMAX)) * HEIGHT, LABEL_COLOR);
     }

@@ -54,10 +54,10 @@ namespace jgraph
     extern bool DRAW_LABELS;
 
     // Offsets for labels
-    extern int XMIN_OFFSET;
-    extern int XMAX_OFFSET;
-    extern int YMIN_OFFSET;
-    extern int YMAX_OFFSET;
+    extern SDL_Point XMIN_OFFSET;
+    extern SDL_Point XMAX_OFFSET;
+    extern SDL_Point YMIN_OFFSET;
+    extern SDL_Point YMAX_OFFSET;
 
     // Color to draw ticks in
     extern SDL_Color TICK_COLOR;

@@ -44,11 +44,11 @@ void GradientField::refresh(bool present)
     if (DRAW_LABELS)
     {
         // Write labels
-        writer->write(formatDouble(XMIN), XMIN_OFFSET, (-YMAX / (YMIN - YMAX)) * HEIGHT, LABEL_COLOR);
-        writer->write(formatDouble(XMAX), WIDTH - XMAX_OFFSET, (-YMAX / (YMIN - YMAX)) * HEIGHT, LABEL_COLOR);
+        writer->write(formatDouble(XMIN), XMIN_OFFSET.x, (-YMAX / (YMIN - YMAX)) * HEIGHT + XMIN_OFFSET.y, LABEL_COLOR);
+        writer->write(formatDouble(XMAX), WIDTH - XMAX_OFFSET.x, (-YMAX / (YMIN - YMAX)) * HEIGHT + XMAX_OFFSET.y, LABEL_COLOR);
 
-        writer->write(formatDouble(YMIN), (-XMIN / (XMAX - XMIN)) * WIDTH, HEIGHT - YMIN_OFFSET, LABEL_COLOR);
-        writer->write(formatDouble(YMAX), (-XMIN / (XMAX - XMIN)) * WIDTH, YMAX_OFFSET, LABEL_COLOR);
+        writer->write(formatDouble(YMIN), (-XMIN / (XMAX - XMIN)) * WIDTH + YMIN_OFFSET.x, HEIGHT - YMIN_OFFSET.y, LABEL_COLOR);
+        writer->write(formatDouble(YMAX), (-XMIN / (XMAX - XMIN)) * WIDTH + YMAX_OFFSET.x, YMAX_OFFSET.y, LABEL_COLOR);
 
         writer->write("0", (-XMIN / (XMAX - XMIN)) * WIDTH - FONT_POINTS, (-YMAX / (YMIN - YMAX)) * HEIGHT, LABEL_COLOR);
     }

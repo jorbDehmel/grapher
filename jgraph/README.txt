@@ -1,6 +1,7 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 jgraph - Graphing library for C++
+Version 0.1.0
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Jordan "Jorb" Dehmel, 2022 - 2023
@@ -126,10 +127,35 @@ light colors and low values to dark colors.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Included font credit of
-https://www.fontspace.com/geelynedits
-via
+The csv.hpp file and .csv parsing:
+
+    This file provides basic functionality for loading
+.csv files (which can be easily graphed). It can load
+them via doubles (useful for graphing) or strings
+(useful for other .csv uses). It can also load both
+vertical and horizontal CSVs. It can handle irregular
+whitespace and collumn names as well. The output of
+these functions are CSV<class T> objects, which store
+the names of the collumns and a 2D vector of their data
+(of type T).
+
+    Example of a vertical csv file:
+
+name1,  name2
+1,      4
+16,     105
+12,     -12.5
+
+    Example of a horizontal csv file:
+    
+name1, 1, 16, 12
+name2, 4, 105, -12.5
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Included fonts from:
 https://www.fontspace.com/pixelletters-font-f22954
+https://fonts.google.com/specimen/Open+Sans
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

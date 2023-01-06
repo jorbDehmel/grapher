@@ -1,6 +1,7 @@
 #####################################
 
-STEM = clang++ -pedantic -Wall `sdl2-config --cflags --libs` -lSDL2_ttf
+STEM = clang++ -pedantic -Wall
+SUFFIX = `jgraph-flags`
 
 #####################################
 
@@ -9,19 +10,19 @@ demos: bin/sfmain.out bin/gfmain.out bin/barmain.out bin/dotmain.out bin/linemai
 #####################################
 
 bin/sfmain.out:	build/sfmain.o bin/jgraph.a
-	$(STEM) -o bin/sfmain.out build/sfmain.o bin/jgraph.a
+	$(STEM) -o bin/sfmain.out build/sfmain.o $(SUFFIX)
 
 bin/gfmain.out:	build/gfmain.o bin/jgraph.a
-	$(STEM) -o bin/gfmain.out build/gfmain.o bin/jgraph.a
+	$(STEM) -o bin/gfmain.out build/gfmain.o $(SUFFIX)
 
 bin/barmain.out:	build/barmain.o bin/jgraph.a
-	$(STEM) -o bin/barmain.out build/barmain.o bin/jgraph.a
+	$(STEM) -o bin/barmain.out build/barmain.o $(SUFFIX)
 
 bin/dotmain.out:	build/dotmain.o bin/jgraph.a
-	$(STEM) -o bin/dotmain.out build/dotmain.o bin/jgraph.a
+	$(STEM) -o bin/dotmain.out build/dotmain.o $(SUFFIX)
 
 bin/linemain.out:	build/linemain.o bin/jgraph.a
-	$(STEM) -o bin/linemain.out build/linemain.o bin/jgraph.a
+	$(STEM) -o bin/linemain.out build/linemain.o $(SUFFIX)
 
 #####################################
 
@@ -34,19 +35,19 @@ bin/jgraph.a:	/usr/include/jgraph/bin/jgraph.a
 #####################################
 
 build/sfmain.o:	demos/sfmain.cpp
-	$(STEM) -c demos/sfmain.cpp -o build/sfmain.o
+	$(STEM) -c demos/sfmain.cpp -o build/sfmain.o  $(SUFFIX)
 
 build/gfmain.o:	demos/gfmain.cpp
-	$(STEM) -c demos/gfmain.cpp -o build/gfmain.o
+	$(STEM) -c demos/gfmain.cpp -o build/gfmain.o $(SUFFIX)
 
 build/barmain.o:	demos/barmain.cpp
-	$(STEM) -c demos/barmain.cpp -o build/barmain.o
+	$(STEM) -c demos/barmain.cpp -o build/barmain.o $(SUFFIX)
 
 build/dotmain.o:	demos/dotmain.cpp
-	$(STEM) -c demos/dotmain.cpp -o build/dotmain.o
+	$(STEM) -c demos/dotmain.cpp -o build/dotmain.o $(SUFFIX)
 
 build/linemain.o:	demos/linemain.cpp
-	$(STEM) -c demos/linemain.cpp -o build/linemain.o
+	$(STEM) -c demos/linemain.cpp -o build/linemain.o $(SUFFIX)
 
 #####################################
 

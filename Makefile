@@ -9,27 +9,27 @@ demos: bin/sfmain.out bin/gfmain.out bin/barmain.out bin/dotmain.out bin/linemai
 
 #####################################
 
-bin/sfmain.out:	build/sfmain.o bin/jgraph.a
+bin/sfmain.out:	build/sfmain.o bin/libjgraph.a
 	$(STEM) -o bin/sfmain.out build/sfmain.o $(SUFFIX)
 
-bin/gfmain.out:	build/gfmain.o bin/jgraph.a
+bin/gfmain.out:	build/gfmain.o bin/libjgraph.a
 	$(STEM) -o bin/gfmain.out build/gfmain.o $(SUFFIX)
 
-bin/barmain.out:	build/barmain.o bin/jgraph.a
+bin/barmain.out:	build/barmain.o bin/libjgraph.a
 	$(STEM) -o bin/barmain.out build/barmain.o $(SUFFIX)
 
-bin/dotmain.out:	build/dotmain.o bin/jgraph.a
+bin/dotmain.out:	build/dotmain.o bin/libjgraph.a
 	$(STEM) -o bin/dotmain.out build/dotmain.o $(SUFFIX)
 
-bin/linemain.out:	build/linemain.o bin/jgraph.a
+bin/linemain.out:	build/linemain.o bin/libjgraph.a
 	$(STEM) -o bin/linemain.out build/linemain.o $(SUFFIX)
 
 #####################################
 
-bin/jgraph.a:	/usr/include/jgraph/bin/jgraph.a
-	cp /usr/include/jgraph/bin/jgraph.a bin/jgraph.a
+bin/libjgraph.a:	/usr/include/jgraph/bin/libjgraph.a
+	cp /usr/include/jgraph/bin/libjgraph.a bin/libjgraph.a
 
-/usr/include/jgraph/bin/jgraph.a:
+/usr/include/jgraph/bin/libjgraph.a:
 	cd jgraph && make && cd -
 
 #####################################

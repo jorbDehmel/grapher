@@ -5,15 +5,15 @@ SUFFIX = `jgraph-flags`
 
 #####################################
 
-install:	bin/jgraph.a /usr/bin/jgraph-flags
+install:	bin/libjgraph.a /usr/bin/jgraph-flags
 	sudo apt install libsdl2-dev libsdl2-ttf-dev
 	sudo rm -rf /usr/include/jgraph
 	sudo cp -r . /usr/include/jgraph
 
 #####################################
 
-bin/jgraph.a:	bin/ build/ build/graph.o build/slopefield.o build/text.o build/drivers.o build/gradfield.o build/csv.o
-	ar rsv bin/jgraph.a build/graph.o build/slopefield.o build/text.o build/drivers.o build/gradfield.o build/csv.o
+bin/libjgraph.a:	bin/ build/ build/graph.o build/slopefield.o build/text.o build/drivers.o build/gradfield.o build/csv.o
+	ar -rsv bin/libjgraph.a build/graph.o build/slopefield.o build/text.o build/drivers.o build/gradfield.o build/csv.o
 
 /usr/bin/jgraph-flags:	jgraph-flags.sh
 	chmod +x jgraph-flags.sh

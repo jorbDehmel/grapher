@@ -80,14 +80,22 @@ void Graph::drawLine(SDL_Renderer *rend, double x1, double y1, double x2, double
 
     if (x1 == x2)
     {
-        SDL_FRect temp{x(x1), y(y1), w(LINE_W), h(y2 - y1)};
+        SDL_FRect temp;
+        temp.x = x1;
+        temp.y = y1;
+        temp.w = LINE_W;
+        temp.h = y2 - y1;
 
         SDL_RenderDrawRectF(rend, &temp);
         return;
     }
     else if (y1 == y2)
     {
-        SDL_FRect temp{x(x1), y(y1), w(x2 - x1), h(LINE_W)};
+        SDL_FRect temp;
+        temp.x = x1;
+        temp.y = y1;
+        temp.w = x2 - x1;
+        temp.h = LINE_W;
 
         SDL_RenderDrawRectF(rend, &temp);
         return;

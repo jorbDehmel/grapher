@@ -21,7 +21,6 @@ Writer::~Writer()
     {
         SDL_DestroyTexture(p.second);
     }
-    surfaces.clear();
 
     return;
 }
@@ -32,11 +31,12 @@ void Writer::write(const string what, const double x, const double y, SDL_Color 
     {
         SDL_Surface *surf = TTF_RenderText_Solid(font, what.c_str(), color);
         surfaces[what] = SDL_CreateTextureFromSurface(rend, surf);
+        SDL_FreeSurface(surf);
     }
 
     int w = 0, h = 0;
     SDL_QueryTexture(surfaces[what], NULL, NULL, &w, &h);
-    
+
     SDL_Rect dstRect;
     dstRect.x = x;
     dstRect.y = y;

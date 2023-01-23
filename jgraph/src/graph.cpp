@@ -154,10 +154,12 @@ Graph::Graph()
 
 Graph::~Graph()
 {
-    SDL_DestroyRenderer(rend);
-    SDL_DestroyWindow(wind);
+    cout << "Deleting graph.\n";
 
     delete writer;
+
+    SDL_DestroyRenderer(rend);
+    SDL_DestroyWindow(wind);
 
     SDL_Quit();
 

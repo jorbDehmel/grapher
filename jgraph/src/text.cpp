@@ -1,6 +1,4 @@
 #include "../text.hpp"
-#include <iostream>
-using namespace std;
 
 Writer::Writer(SDL_Renderer *Rend, const char *Path, const int Points)
 {
@@ -17,9 +15,13 @@ Writer::~Writer()
     TTF_CloseFont(font);
     TTF_Quit();
 
-    for (auto p : surfaces)
+    for (auto it = surfaces.begin(); it != surfaces.end(); it++)
     {
-        SDL_DestroyTexture(p.second);
+        if (it->second != nullptr)
+        {
+            SDL_DestroyTexture(it->second);
+            surfaces[it->first] = nullptr;
+        }
     }
 
     return;

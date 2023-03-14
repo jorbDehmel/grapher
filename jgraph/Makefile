@@ -6,7 +6,6 @@ SUFFIX = `jgraph-flags`
 #####################################
 
 install:	bin/libjgraph.a /usr/bin/jgraph-flags
-	sudo apt install libsdl2-dev libsdl2-ttf-dev
 	sudo rm -rf /usr/include/jgraph
 	sudo cp -r . /usr/include/jgraph
 

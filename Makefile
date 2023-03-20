@@ -5,6 +5,9 @@ SUFFIX = `jgraph-flags`
 
 #####################################
 
+install:
+	$(MAKE) -C jgraph
+
 demos: bin/sfmain.out bin/gfmain.out bin/barmain.out bin/dotmain.out bin/linemain.out
 
 #####################################

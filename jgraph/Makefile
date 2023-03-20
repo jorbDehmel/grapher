@@ -5,7 +5,7 @@ SUFFIX = `jgraph-flags`
 
 #####################################
 
-install:	bin/libjgraph.a /usr/bin/jgraph-flags
+install:	/usr/bin/jgraph-flags bin/libjgraph.a
 	sudo rm -rf /usr/include/jgraph
 	sudo cp -r . /usr/include/jgraph
 

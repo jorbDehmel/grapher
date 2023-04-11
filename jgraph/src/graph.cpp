@@ -13,7 +13,7 @@ namespace jgraph
     double TICK_SPACING_X = 1;
     double TICK_SPACING_Y = 1;
 
-    char *FONT_PATH = "/usr/include/jgraph/fonts/pixelletters/Pixellettersfull-BnJ5.ttf";
+    string FONT_PATH = "/usr/include/jgraph/fonts/pixelletters/Pixellettersfull-BnJ5.ttf";
     int FONT_POINTS = 10;
 
     int LABEL_LENGTH = 5;
@@ -147,7 +147,7 @@ Graph::Graph()
     SDL_SetWindowSize(wind, WIDTH * UPSCALING_X, HEIGHT * UPSCALING_Y);
     SDL_RenderSetScale(rend, UPSCALING_X, UPSCALING_Y);
 
-    writer = new Writer(rend, FONT_PATH, FONT_POINTS);
+    writer = new Writer(rend, FONT_PATH.c_str(), FONT_POINTS);
 
     return;
 }

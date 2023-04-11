@@ -36,7 +36,7 @@ namespace jgraph
     extern double TICK_SPACING_X, TICK_SPACING_Y;
 
     // Path to the .ttf font to write in
-    extern char *FONT_PATH;
+    extern string FONT_PATH;
 
     // Size of the font to write in
     extern int FONT_POINTS;
